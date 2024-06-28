@@ -41,7 +41,7 @@ let dummyData = [
 
 export default function Home() {
   return (
-    <section className="max-w-full items-center bg-transparent">
+    <section className="w-full bg-transparent">
       {dummyData.map((item, index) => {
         return (
           <MainSection

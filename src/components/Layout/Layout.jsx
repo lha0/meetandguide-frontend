@@ -5,7 +5,10 @@ export default function Layout(props) {
   return (
     <>
       <Header />
-      {props.children}
+      <div className="w-full flex flex-col items-center font-pre">
+        {props.children}
+      </div>
+
       <Footer />
     </>
   );
