@@ -1,8 +1,9 @@
-import MainSection from "../../components/MainSection";
+//View 컴포넌트, state나 로직을 담은 컴포넌트
 import mainSectionImg from "../../assets/image/main_section1.png";
 import onlineSectionImg from "../../assets/image/main_section2.png";
 import offlineSectionImg from "../../assets/image/main_section3.png";
 import recommendSectionImg from "../../assets/image/main_section4.png";
+import HomeView from "./HomeView";
 
 let dummyData = [
   {
@@ -12,6 +13,7 @@ let dummyData = [
     img: mainSectionImg,
     button: "더 알아보기",
     bgColor: "#FFEECD",
+    url: "",
   },
   {
     title: "온라인 가이드",
@@ -20,6 +22,7 @@ let dummyData = [
     img: onlineSectionImg,
     button: "온라인 가이드 찾으러 가기",
     bgColor: "#FFFFFF",
+    url: "/onlineGuide",
   },
   {
     title: "오프라인 가이드",
@@ -28,6 +31,7 @@ let dummyData = [
     img: offlineSectionImg,
     button: "오프라인 가이드 찾으러 가기",
     bgColor: "#FFEECD",
+    url: "/offlineGuide",
   },
   {
     title: "여행지 추천",
@@ -36,25 +40,13 @@ let dummyData = [
     img: recommendSectionImg,
     button: "여행지 추천 받으러 가기",
     bgColor: "#FFFFFF",
+    url: "/recommend",
   },
 ];
 
 export default function Home() {
-  return (
-    <section className="w-full bg-transparent">
-      {dummyData.map((item, index) => {
-        return (
-          <MainSection
-            title={item.title}
-            mainText={item.mainText}
-            subText={item.subText}
-            img={item.img}
-            buttonText={item.button}
-            bgColor={item.bgColor}
-            idx={index}
-          />
-        );
-      })}
-    </section>
-  );
+  const props = {
+    dummyData,
+  };
+  return <HomeView {...props} />;
 }

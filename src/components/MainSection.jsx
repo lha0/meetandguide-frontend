@@ -1,4 +1,6 @@
-import Arrow from "../assets/image/icon_arrow.png";
+import { useEffect, useState } from "react";
+import MainSectionView from "./MainSectionView";
+import { useNavigate } from "react-router-dom";
 
 export default function MainSection({
   title,
@@ -7,75 +9,47 @@ export default function MainSection({
   img,
   buttonText,
   bgColor,
+  url,
   idx,
 }) {
-  const containerStyle = {
-    backgroundColor: bgColor,
+  const [vh, setVh] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setVh(window.innerHeight - 75);
+    const updateVH = () => {
+      const newVh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${newVh}px`);
+    };
+
+    updateVH();
+    window.addEventListener("resize", updateVH); // 창 크기 변경에 대한 이벤트 리스너 추가
+
+    return () => {
+      window.removeEventListener("resize", updateVH); // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    };
+  }, []);
+
+  const handleViewMoreClick = () => {
+    window.scrollTo({ top: vh, behavior: "smooth" });
   };
 
-  if (idx == 0) {
-    return (
-      <div
-        style={containerStyle}
-        className={`h-[720px] px-[162px] py-[180px] flex flex-col items-center]`}
-      >
-        <div className={`flex justify-around items-center]`}>
-          <div className="flex flex-col justify-center gap-[20px]">
-            <div className="font-bold text-[20px]"> {title} </div>
-            <div className="max-w-[570px] font-bold text-[45px] break-all">
-              {" "}
-              {mainText}
-            </div>
-            <div className="text-[20px] text-gray"> {subText}</div>
-          </div>
-          <img src={img} className={`w-[400px] h-[400px]`} alt={`img ${idx}`} />
-        </div>
+  const handleMoveToPage = () => {
+    navigate(url);
+  };
 
-        <button className="py-[45px] flex flex-col items-center gap-[7px] font-bold text-[15px]">
-          <div> {buttonText} </div>
-          <img src={Arrow} className="w-[15px]" alt="move to detail" />
-        </button>
-      </div>
-    );
-  } else if (idx % 2 != 0) {
-    return (
-      <div
-        style={containerStyle}
-        className={`h-[720px] px-[162px] py-[180px] flex justify-around items-center]`}
-      >
-        <img src={img} className={`w-[400px] h-[400px]`} alt={`img ${idx}`} />
-        <div className="flex flex-col justify-center gap-[20px]">
-          <div className="font-bold text-[20px]"> {title} </div>
-          <div className="max-w-[570px] font-bold text-[45px] break-all">
-            {" "}
-            {mainText}
-          </div>
-          <div className="text-[20px] text-gray"> {subText}</div>
-          <button className="max-w-[280px] rounded-2xl shadow-button py-4 font-bold text-[15px]">
-            {buttonText} {">>"}
-          </button>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div
-        style={containerStyle}
-        className={`h-[720px] px-[162px] py-[180px] flex justify-around items-center`}
-      >
-        <div className="flex flex-col justify-center gap-[20px]">
-          <div className="font-bold text-[20px]"> {title} </div>
-          <div className="max-w-[570px] font-bold text-[45px] break-all">
-            {" "}
-            {mainText}
-          </div>
-          <div className="text-[20px] text-gray"> {subText}</div>
-          <button className="max-w-[280px] rounded-2xl shadow-button py-4 bg-[#ffffff] font-bold text-[15px]">
-            {buttonText} {"  >>"}
-          </button>
-        </div>
-        <img src={img} className={`w-[400px] h-[400px]`} alt={`img ${idx}`} />
-      </div>
-    );
-  }
+  const props = {
+    title,
+    mainText,
+    subText,
+    img,
+    buttonText,
+    bgColor,
+    url,
+    idx,
+    handleViewMoreClick,
+    handleMoveToPage,
+  };
+
+  return <MainSectionView {...props} />;
 }
