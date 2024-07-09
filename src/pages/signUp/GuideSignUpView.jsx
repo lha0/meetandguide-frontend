@@ -1,7 +1,7 @@
-export default function SignUpView({ handleSignUpBtn }) {
+export default function GuideSignUpView({ handleSignUpBtn }) {
   return (
     <section className="w-[546px] mt-[100px] mb-[130px] flex flex-col justify-center items-center rounded-2xl shadow-button bg-[#F1F1F1]">
-      <h1 className="pt-[60px] font-bold text-[30px]"> 회원가입 </h1>
+      <h1 className="pt-[60px] font-bold text-[30px]"> 가이드 회원가입 </h1>
       <div className="w-[200px] h-[200px] m-[17px] rounded-full bg-gray">
         이미지 등록
       </div>
@@ -61,6 +61,17 @@ export default function SignUpView({ handleSignUpBtn }) {
         />
       </div>
 
+      <div className="w-[350px] mt-[40px] flex gap-[10px]">
+        <label>
+          <input type="checkbox" />
+          온라인
+        </label>
+        <label>
+          <input type="checkbox" />
+          오프라인
+        </label>
+      </div>
+
       <div className="w-[350px] mt-[20px] flex justify-between items-center gap-[10px] text-[15px]">
         <div>가이드 경력</div>
         <select className="w-[270px] h-[45px] px-4 py-2 rounded-2xl shadow-button">
@@ -94,6 +105,11 @@ export default function SignUpView({ handleSignUpBtn }) {
           <option value="gyeongnam"> 경상남도 </option>
           <option value="jeju"> 제주특별자치도 </option>
         </select>
+      </div>
+
+      <div className="w-[350px] mt-[20px] flex justify-between items-center gap-[10px] text-[15px]">
+        <div>한 줄 소개</div>
+        <textarea className="w-[270px] h-[45px] px-4 py-2 rounded-2xl shadow-button" />
       </div>
 
       <button

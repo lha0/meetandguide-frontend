@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import SignUpView from "./SignUpView";
+import GuideSignUpView from "./GuideSignUpView";
 
-export default function SignUp() {
+export default function GuideSignUp() {
   const navigate = useNavigate();
   const handleSignUpBtn = () => {
     navigate("/logIn");
   };
   const props = { handleSignUpBtn };
-  return <SignUpView {...props} />;
+  return <GuideSignUpView {...props} />;
 }
