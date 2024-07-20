@@ -28,6 +28,7 @@ export default function LogIn() {
       })
       .catch((error) => {
         console.log("login Error ", error);
+        alert("로그인 실패");
       });
   };
 

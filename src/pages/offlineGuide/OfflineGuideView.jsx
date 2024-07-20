@@ -1,6 +1,7 @@
 import offlineBannerImg from "../../assets/image/offlineBanner.png";
+import GuideCard from "../../components/GuideCard";
 
-export default function OfflineGuideView() {
+export default function OfflineGuideView({ offlineGuideList }) {
   return (
     <section className="h-[720px] max-w-full mx-[162px] flex flex-col items-center]">
       <div className="mt-[25px] flex flex-col gap-[20px]">
@@ -15,7 +16,12 @@ export default function OfflineGuideView() {
             placeholder="Search"
           />
         </div>
-        <div className="mt-[25px]">가이드 리스트</div>
+        <div className="mt-[25px] flex gap-[24px]">
+          {offlineGuideList.map((item, index) => {
+            const props = { nickname: item.nickname, career: item.career };
+            return <GuideCard {...props} />;
+          })}
+        </div>
       </div>
     </section>
   );

@@ -20,19 +20,44 @@ export default function GuideSignUp() {
   });
 
   const handleChange = async (e) => {
-    setValues({
-      ...values,
-      [e.target.id]: e.target.value,
-    });
-    console.log(values);
+    const { id, type, checked, value } = e.target;
+
+    if (type === "checkbox") {
+      setValues({
+        ...values,
+        [id]: checked ? 1 : 0,
+      });
+    } else {
+      const newValue = e.target.value;
+
+      if (
+        e.target.id == "career" ||
+        e.target.id == "areaCode" ||
+        e.target.id == "sigunguCode"
+      ) {
+        setValues({
+          ...values,
+          [e.target.id]: Number(newValue),
+        });
+      } else {
+        setValues({
+          ...values,
+          [e.target.id]: newValue,
+        });
+      }
+    }
   };
 
   const handleSignUpBtn = () => {
     guideSignup(values)
       .then((response) => {
+        alert("회원가입 성공 \n 로그인 화면으로 이동합니다.");
         navigate("/logIn");
       })
-      .catch((error) => console.log("guide signup fails ", error));
+      .catch((error) => {
+        alert("회원가입 실패");
+        console.log("guide signup fails ", error);
+      });
   };
   const props = { values, handleChange, handleSignUpBtn };
   return <GuideSignUpView {...props} />;

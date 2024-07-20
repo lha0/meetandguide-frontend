@@ -77,6 +77,7 @@ export default function GuideSignUpView({
             type="checkbox"
             id="online"
             value={values.online}
+            checked={values.online === 1}
             onChange={handleChange}
           />
           온라인
@@ -85,6 +86,7 @@ export default function GuideSignUpView({
           <input
             type="checkbox"
             id="offline"
+            checked={values.offline === 1}
             value={values.offline}
             onChange={handleChange}
           />

@@ -20,9 +20,11 @@ export default function UserSignUp() {
   const handleSignUpBtn = async (e) => {
     userSignup(values)
       .then((response) => {
+        alert("회원가입 성공 \n 로그인 화면으로 이동합니다.");
         navigate("/logIn");
       })
       .catch((error) => {
+        alert("회원가입 실패");
         console.log("user signup fails ", error);
       });
   };

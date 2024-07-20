@@ -10,7 +10,7 @@ export const AuthApi = axios.create({
     "Content-Type": "application/json",
     Authorization: `${GRANT_TYPE} ${ACCESS_TOKEN}`,
 
-    "Access-Control-Allow-Origin": `http://localhost:3000`,
+    "Access-Control-Allow-Origin": `http://localhost:8080`,
     "Access-Control-Allow-Credentials": "true",
   },
 });
@@ -18,6 +18,7 @@ export const AuthApi = axios.create({
 // LOGIN API
 export const login = async ({ username, password }) => {
   const data = { username, password };
+  console.log(data);
   const response = await AuthApi.post("/api/login/v1", data);
   return response.data;
 };
@@ -63,5 +64,19 @@ export const guideSignup = async ({
     offline,
   };
   const response = await AuthApi.post("/api/register/guide/v1", data);
+  return response.data;
+};
+
+// 오프라인 가이드 조회
+export const getOfflineGuideList = async () => {
+  const data = {};
+  const response = await AuthApi.get("/api/guide/offlineguidelist", data);
+  return response.data;
+};
+
+// 온라인 가이드 조회
+export const getOnlineGuideList = async () => {
+  const data = {};
+  const response = await AuthApi.get("/api/guide/onlineguidelist", data);
   return response.data;
 };
