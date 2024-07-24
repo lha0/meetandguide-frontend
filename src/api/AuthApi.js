@@ -80,3 +80,13 @@ export const getOnlineGuideList = async () => {
   const response = await AuthApi.get("/api/guide/onlineguidelist", data);
   return response.data;
 };
+
+// /recommend 페이지 내 여행지역 추천 API
+export const getRecommend = async () => {
+  const data = {};
+  const response = await AuthApi.get(
+    "/api/korservice/area/arearecommendlist/v1",
+    data
+  );
+  return response.data;
+};
