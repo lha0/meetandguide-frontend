@@ -18,7 +18,6 @@ export const AuthApi = axios.create({
 // LOGIN API
 export const login = async ({ username, password }) => {
   const data = { username, password };
-  console.log(data);
   const response = await AuthApi.post("/api/login/v1", data);
   return response.data;
 };
@@ -88,5 +87,15 @@ export const getRecommend = async () => {
     "/api/korservice/area/arearecommendlist/v1",
     data
   );
+  return response.data;
+};
+
+// /recommend/:areaCode 특정 지역 추천 페이지
+export const getDetailRecommend = async ({ areaCode }) => {
+  const response = await AuthApi.get("/api/korservice/area/recommendlist/v1", {
+    headers: {
+      areaCode: areaCode,
+    },
+  });
   return response.data;
 };

@@ -6,6 +6,8 @@ import GuideSignUp from "./signUp/GuideSignUp";
 import OnlineGuide from "./onlineGuide/OnlineGuide";
 import OfflineGuide from "./offlineGuide/OfflineGuide";
 import Recommend from "./recommend/Recommend";
+import AreaDetail from "./recommend/AreaDetail";
+import MyPage from "./mypage/MyPage";
 
 export default function Router() {
   return (
@@ -15,8 +17,10 @@ export default function Router() {
       <Route path="/userSignUp" element={<UserSignUp />} />
       <Route path="/guideSignUp" element={<GuideSignUp />} />
       <Route path="/recommend" element={<Recommend />} />
+      <Route path="/recommend/:areaCode" element={<AreaDetail />} />
       <Route path="/onlineGuide" element={<OnlineGuide />} />
       <Route path="/offlineGuide" element={<OfflineGuide />} />
+      <Route path="/mypage" element={<MyPage />} />
     </Routes>
   );
 }

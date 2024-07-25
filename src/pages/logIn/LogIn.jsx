@@ -25,6 +25,7 @@ export default function LogIn() {
         localStorage.setItem("refreshToken", response.jwtToken.refreshToken);
 
         navigate("/");
+        window.location.reload();
       })
       .catch((error) => {
         console.log("login Error ", error);
