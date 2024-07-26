@@ -4,7 +4,7 @@ import iconRecommend from "../../assets/image/icon_recommend.png";
 import iconOnlineGuide from "../../assets/image/icon_mobile.png";
 import iconOfflineGuide from "../../assets/image/icon_airplane.png";
 import iconLogIn from "../../assets/image/icon_mypage.png";
-import HeaderButton from "../HeaderButton";
+import HeaderButton from "../common/HeaderButton";
 import { useEffect, useState } from "react";
 
 export default function Header() {

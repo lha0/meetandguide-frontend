@@ -1,4 +1,5 @@
-import Arrow from "../assets/image/icon_arrow.png";
+import Arrow from "../../assets/image/icon_arrow.png";
+
 export default function MainSectionView({
   title,
   mainText,

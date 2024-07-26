@@ -10,7 +10,7 @@ export default function GuideSignUpView({
         이미지 등록
       </div>
       <div className="w-[350px] mt-[40px] flex justify-between items-center gap-[10px] text-[15px]">
-        <div>이름</div>
+        <div>아이디</div>
         <input
           className="w-[270px] h-[45px] px-4 py-2 rounded-2xl shadow-button"
           id="username"

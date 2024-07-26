@@ -1,5 +1,5 @@
 //VAC 컴포넌트, view를 위한 props와 jsx만 존재하는 컴포넌트
-import MainSection from "../../components/MainSection";
+import MainSection from "../../components/Layout/MainSection";
 
 export default function HomeView({ dummyData }) {
   return (
