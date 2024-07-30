@@ -7,6 +7,8 @@ export default function GuideSignUpView({
   displayFormattedPhoneNumber,
   handleSendSMS,
   handleVerifyNum,
+  isSMSSent,
+  isVerified,
 }) {
   return (
     <section className="w-[600px] mt-[100px] mb-[130px] flex flex-col justify-center items-center rounded-2xl shadow-button bg-[#F1F1F1]">
@@ -99,11 +101,12 @@ export default function GuideSignUpView({
           />
 
           <button
-            className="w-[120px] h-[45px] px-2 py-1
-          bg-white border-2 border-red-400 text-black rounded-2xl shadow-button"
+            className={`w-[120px] h-[45px] px-2 py-1 ${
+              isSMSSent ? "bg-gray" : "bg-blue-500"
+            } text-white rounded-2xl shadow-button`}
             onClick={handleSendSMS}
           >
-            인증번호 전송
+            {isSMSSent ? "다시 보내기" : "인증번호 전송"}
           </button>
         </div>
 
@@ -118,11 +121,13 @@ export default function GuideSignUpView({
           />
 
           <button
-            className="w-[120px] h-[45px] px-2 py-1 
-          bg-white border-2 border-red-400 text-black rounded-2xl shadow-button"
             onClick={handleVerifyNum}
+            disabled={isVerified}
+            className={`w-[120px] h-[45px] px-2 py-1 ${
+              isVerified ? "bg-gray" : " bg-blue-500"
+            } text-white rounded-2xl shadow-button`}
           >
-            인증 확인
+            {isVerified ? "인증 완료" : "인증번호 전송"}
           </button>
         </div>
       </div>

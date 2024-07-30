@@ -21,6 +21,8 @@ export default function GuideSignUp() {
   });
   const [phoneNumber, setPhoneNumber] = useState("");
   const [verifyNum, setVerifyNum] = useState("");
+  const [isSMSSent, setIsSMSSent] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   const handleChange = async (e) => {
     const { id, type, checked, value } = e.target;
@@ -81,22 +83,26 @@ export default function GuideSignUp() {
   };
 
   const handleSignUpBtn = () => {
-    guideSignup(values)
-      .then((response) => {
-        alert("회원가입 성공 \n 로그인 화면으로 이동합니다.");
-        navigate("/logIn");
-      })
-      .catch((error) => {
-        alert("회원가입 실패");
-        console.log("guide signup fails ", error);
-      });
+    if (!isVerified || values.username == "" || values.password == "") {
+      alert("작성되지 않은 필드가 있습니다.");
+    } else {
+      guideSignup(values)
+        .then((response) => {
+          alert("회원가입 성공 \n 로그인 화면으로 이동합니다.");
+          navigate("/logIn");
+        })
+        .catch((error) => {
+          alert("회원가입 실패");
+          console.log("guide signup fails ", error);
+        });
+    }
   };
 
   const handleSendSMS = async (e) => {
     sendAuthSMS(phoneNumber)
       .then((response) => {
-        console.log(response);
         alert("인증번호 발송 성공");
+        setIsSMSSent(true);
       })
       .catch((error) => console.log("인증번호 발송 실패", error));
   };
@@ -109,8 +115,8 @@ export default function GuideSignUp() {
   const handleVerifyNum = async (e) => {
     verifyPhoneNum(verifyObject)
       .then((response) => {
-        console.log(response);
         alert("인증 성공");
+        setIsVerified(true);
       })
       .catch((error) => console.log("인증번호 인증 실패", error));
   };
@@ -124,6 +130,8 @@ export default function GuideSignUp() {
     displayFormattedPhoneNumber,
     handleSendSMS,
     handleVerifyNum,
+    isSMSSent,
+    isVerified,
   };
   return <GuideSignUpView {...props} />;
 }
