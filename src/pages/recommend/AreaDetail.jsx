@@ -5,7 +5,7 @@ import { getDetailRecommend } from "../../api/AuthApi";
 
 export default function AreaDetail() {
   const params = useParams();
-  const areaCode = params.areaCode;
+  const areaCode = parseInt(params.areaCode);
 
   useEffect(() => {
     getDetailRecommend(areaCode)

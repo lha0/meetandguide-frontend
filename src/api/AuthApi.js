@@ -66,6 +66,28 @@ export const guideSignup = async ({
   return response.data;
 };
 
+// 휴대폰 인증번호 발송
+export const sendAuthSMS = async (phonenumber) => {
+  const data = {
+    phonenumber,
+  };
+  console.log(data);
+  const response = await AuthApi.post("/sms/send", data);
+  return response.data;
+};
+
+// 휴대폰 인증번호 체크
+export const verifyPhoneNum = async ({ phonenumber, verificationCode }) => {
+  const data = {
+    phonenumber,
+    verificationCode,
+  };
+
+  console.log(data);
+  const response = await AuthApi.post("/sms/verify", data);
+  return response.data;
+};
+
 // 오프라인 가이드 조회
 export const getOfflineGuideList = async () => {
   const data = {};
@@ -92,10 +114,9 @@ export const getRecommend = async () => {
 
 // /recommend/:areaCode 특정 지역 추천 페이지
 export const getDetailRecommend = async ({ areaCode }) => {
+  const params = { areaCode: areaCode };
   const response = await AuthApi.get("/api/korservice/area/recommendlist/v1", {
-    headers: {
-      areaCode: areaCode,
-    },
+    params,
   });
   return response.data;
 };

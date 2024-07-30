@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import GuideSignUpView from "./GuideSignUpView";
 import { useState } from "react";
-import { guideSignup } from "../../api/AuthApi";
+import { guideSignup, sendAuthSMS, verifyPhoneNum } from "../../api/AuthApi";
 
 export default function GuideSignUp() {
   const navigate = useNavigate();
@@ -15,17 +15,37 @@ export default function GuideSignUp() {
     career: 0,
     phonenum: "",
     comment: "",
+    gender: 1,
     online: 0,
     offline: 0,
   });
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [verifyNum, setVerifyNum] = useState("");
 
   const handleChange = async (e) => {
     const { id, type, checked, value } = e.target;
 
-    if (type === "checkbox") {
+    if (id === "phonenum") {
+      const numbersOnly = e.target.value.replace(/\D/g, "");
+
+      if (numbersOnly.length <= 11) {
+        setPhoneNumber(numbersOnly);
+        setValues({
+          ...values,
+          [id]: String(numbersOnly),
+        });
+      }
+    } else if (id == "verifynum") {
+      setVerifyNum(String(value));
+    } else if (type === "checkbox") {
       setValues({
         ...values,
         [id]: checked ? 1 : 0,
+      });
+    } else if (type === "radio") {
+      setValues({
+        ...values,
+        [id]: parseInt(value),
       });
     } else {
       const newValue = e.target.value;
@@ -48,6 +68,18 @@ export default function GuideSignUp() {
     }
   };
 
+  const displayFormattedPhoneNumber = (numbers) => {
+    if (numbers.length <= 3) {
+      return numbers;
+    } else if (numbers.length <= 7) {
+      return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    } else {
+      return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(
+        7
+      )}`;
+    }
+  };
+
   const handleSignUpBtn = () => {
     guideSignup(values)
       .then((response) => {
@@ -59,6 +91,39 @@ export default function GuideSignUp() {
         console.log("guide signup fails ", error);
       });
   };
-  const props = { values, handleChange, handleSignUpBtn };
+
+  const handleSendSMS = async (e) => {
+    sendAuthSMS(phoneNumber)
+      .then((response) => {
+        console.log(response);
+        alert("인증번호 발송 성공");
+      })
+      .catch((error) => console.log("인증번호 발송 실패", error));
+  };
+
+  const verifyObject = {
+    phonenumber: phoneNumber,
+    verificationCode: verifyNum,
+  };
+
+  const handleVerifyNum = async (e) => {
+    verifyPhoneNum(verifyObject)
+      .then((response) => {
+        console.log(response);
+        alert("인증 성공");
+      })
+      .catch((error) => console.log("인증번호 인증 실패", error));
+  };
+
+  const props = {
+    values,
+    handleChange,
+    handleSignUpBtn,
+    phoneNumber,
+    verifyNum,
+    displayFormattedPhoneNumber,
+    handleSendSMS,
+    handleVerifyNum,
+  };
   return <GuideSignUpView {...props} />;
 }
