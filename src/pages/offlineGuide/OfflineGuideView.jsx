@@ -6,7 +6,7 @@ export default function OfflineGuideView({
   handleClickOnCard,
 }) {
   return (
-    <section className="h-[720px] max-w-full mx-[162px] flex flex-col items-center]">
+    <section className="max-w-full mx-[162px] flex flex-col items-center]">
       <div className="mt-[25px] flex flex-col gap-[20px]">
         <h1 className="font-bold text-[24px]"> 오프라인 가이드</h1>
         <img src={offlineBannerImg} alt="banner" />

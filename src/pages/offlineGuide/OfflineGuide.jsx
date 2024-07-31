@@ -8,8 +8,21 @@ export default function OfflineGuide() {
   const [guideModal, setGuideModal] = useState(false);
   const [clickGuideInfo, setClickGuideInfo] = useState([]);
 
+  const params = {
+    ageGoe: 0,
+    ageLoe: 0,
+    nickname: "",
+    areaCode: 0,
+    sigunguCode: 0,
+    careerGo: 0,
+    careerLow: 0,
+    size: 0,
+    page: 0,
+    order: "",
+  };
+
   useEffect(() => {
-    getOfflineGuideList()
+    getOfflineGuideList({ params })
       .then((response) => {
         setList(response.content);
       })

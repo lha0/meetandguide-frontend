@@ -8,9 +8,24 @@ export default function OnlineGuide() {
   const [guideModal, setGuideModal] = useState(false);
   const [clickGuideInfo, setClickGuideInfo] = useState([]);
 
+  const params = {
+    ageGoe: 10,
+    ageLoe: 20,
+    nickname: "",
+    areaCode: 0,
+    sigunguCode: 0,
+    careerGo: 0,
+    careerLow: 0,
+    size: 10,
+    page: 1,
+    order: "",
+  };
+
   useEffect(() => {
-    getOnlineGuideList()
+    getOnlineGuideList({ params })
       .then((response) => {
+        console.log(params.size);
+        console.log(response);
         setList(response.content);
       })
       .catch((error) => {

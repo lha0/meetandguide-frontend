@@ -6,7 +6,7 @@ export default function OnlineGuideView({
   handleClickOnCard,
 }) {
   return (
-    <section className="h-[720px] max-w-full mx-[162px] flex flex-col items-center]">
+    <section className="max-w-full mx-[162px] flex flex-col items-center]">
       <div className="mt-[25px] flex flex-col gap-[20px]">
         <h1 className="font-bold text-[24px]"> 온라인 가이드</h1>
         <img src={onlineBannerImg} alt="banner" />
@@ -19,7 +19,7 @@ export default function OnlineGuideView({
             placeholder="Search"
           />
         </div>
-        <div className="mt-[25px] flex gap-[24px]">
+        <div className="mt-[25px] flex flex-wrap justify-start gap-[20px]">
           {onlineGuideList.map((item, index) => {
             const props = {
               nickname: item.nickname,

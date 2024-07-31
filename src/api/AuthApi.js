@@ -89,16 +89,60 @@ export const verifyPhoneNum = async ({ phonenumber, verificationCode }) => {
 };
 
 // 오프라인 가이드 조회
-export const getOfflineGuideList = async () => {
-  const data = {};
-  const response = await AuthApi.get("/api/guide/offlineguidelist", data);
+export const getOfflineGuideList = async ({
+  ageGoe,
+  ageLoe,
+  nickname,
+  areaCode,
+  sigunguCode,
+  careerGo,
+  careerLow,
+  size,
+  page,
+  order,
+}) => {
+  const params = {
+    ageGoe,
+    ageLoe,
+    nickname,
+    areaCode,
+    sigunguCode,
+    careerGo,
+    careerLow,
+    size,
+    page,
+    order,
+  };
+  const response = await AuthApi.get("/api/guide/offlineguidelist", { params });
   return response.data;
 };
 
 // 온라인 가이드 조회
-export const getOnlineGuideList = async () => {
-  const data = {};
-  const response = await AuthApi.get("/api/guide/onlineguidelist", data);
+export const getOnlineGuideList = async ({
+  ageGoe,
+  ageLoe,
+  nickname,
+  areaCode,
+  sigunguCode,
+  careerGo,
+  careerLow,
+  size,
+  page,
+  order,
+}) => {
+  const params = {
+    ageGoe,
+    ageLoe,
+    nickname,
+    areaCode,
+    sigunguCode,
+    careerGo,
+    careerLow,
+    size,
+    page,
+    order,
+  };
+  const response = await AuthApi.get("/api/guide/onlineguidelist", { params });
   return response.data;
 };
 
@@ -114,8 +158,20 @@ export const getRecommend = async () => {
 
 // /recommend/:areaCode 특정 지역 추천 페이지
 export const getDetailRecommend = async ({ areaCode }) => {
-  const params = { areaCode: areaCode };
-  const response = await AuthApi.get("/api/korservice/area/recommendlist/v1", {
+  const params = { areaCode };
+  const response = await AuthApi.get(
+    "/api/korservice/area/sigungurecommendlist/v1",
+    {
+      params,
+    }
+  );
+  return response.data;
+};
+
+// 지역 이름
+export const getAreaName = async ({ areaCode, sigunguCode }) => {
+  const params = { areaCode, sigunguCode };
+  const response = await AuthApi.get("/api/korservice/area/code2name/v1", {
     params,
   });
   return response.data;
