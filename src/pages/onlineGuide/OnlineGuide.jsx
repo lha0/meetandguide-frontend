@@ -7,8 +7,8 @@ import { GUIDE_FILTER_CATEGORYS } from "../../data/Filter";
 export default function OnlineGuide() {
   const [onlineGuideList, setList] = useState([]);
   const [guideModal, setGuideModal] = useState(false);
-  const [clickGuideInfo, setClickGuideInfo] = useState([]);
-  const [activeFilter, setActiveFilter] = useState(0);
+  const [clickGuideID, setClickGuideID] = useState(-1);
+  const [activeFilter, setActiveFilter] = useState(-1);
   const [params, setParams] = useState({
     ageGoe: null,
     ageLoe: null,
@@ -51,18 +51,14 @@ export default function OnlineGuide() {
     console.log(onlineGuideList);
   };
 
-  const handleClickOnCard = (guideInfo) => {
+  const handleClickOnCard = (guideId) => {
     setGuideModal(true);
-    setClickGuideInfo([
-      guideInfo.nickname,
-      guideInfo.career,
-      guideInfo.comment,
-    ]);
+    setClickGuideID(guideId);
   };
 
   const handleOnClose = () => {
     setGuideModal(false);
-    setClickGuideInfo([]);
+    setClickGuideID(-1);
   };
 
   const handleActiveFilter = (idx) => {
@@ -101,7 +97,7 @@ export default function OnlineGuide() {
       <OnlineGuideView {...props} />;
       <GuideModal
         isVisible={guideModal}
-        guideInfo={clickGuideInfo}
+        guideID={clickGuideID}
         onClose={handleOnClose}
       />
     </>

@@ -1,10 +1,5 @@
 import Profile from "../../assets/image/icon_mypage.png";
-export default function GuideCard({
-  nickname,
-  career,
-  comment,
-  handleClickOnCard,
-}) {
+export default function GuideCard({ nickname, career, handleClickOnCard }) {
   return (
     <div
       onClick={handleClickOnCard}

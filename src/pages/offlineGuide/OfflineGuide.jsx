@@ -8,7 +8,7 @@ export default function OfflineGuide() {
   const [offlineGuideList, setList] = useState([]);
   const [guideModal, setGuideModal] = useState(false);
   const [clickGuideInfo, setClickGuideInfo] = useState([]);
-  const [activeFilter, setActiveFilter] = useState(0);
+  const [activeFilter, setActiveFilter] = useState(-1);
   const [params, setParams] = useState({
     ageGoe: null,
     ageLoe: null,

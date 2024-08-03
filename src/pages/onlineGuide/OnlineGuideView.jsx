@@ -103,8 +103,7 @@ export default function OnlineGuideView({
             const props = {
               nickname: item.nickname,
               career: item.career,
-              comment: item.comment,
-              handleClickOnCard: () => handleClickOnCard(item),
+              handleClickOnCard: () => handleClickOnCard(item.guideId),
             };
             return <GuideCard key={index} {...props} />;
           })}

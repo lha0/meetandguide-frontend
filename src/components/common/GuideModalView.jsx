@@ -14,13 +14,13 @@ export default function GuideModalView({ isVisible, guideInfo, onClose }) {
             alt="profileImage"
           />
           <div className="flex flex-1 flex-col justify-center items-start gap-[10px]">
-            <div className="text-[20px]"> 이름 : {guideInfo[0]} </div>
-            <div className="text-[20px]"> 경력 : {guideInfo[1]}</div>
+            <div className="text-[20px]"> 이름 : {guideInfo.nickname} </div>
+            <div className="text-[20px]"> 경력 : {guideInfo.career}</div>
           </div>
         </div>
         <div className="ml-[20px] font-bold text-[20px]">
           <div> 어필 </div>
-          <div> {guideInfo[2]}</div>
+          <div> {guideInfo.comment}</div>
         </div>
       </div>
     </Modal>

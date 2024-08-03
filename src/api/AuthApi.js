@@ -147,6 +147,15 @@ export const getOnlineGuideList = async ({
   return response.data;
 };
 
+// 가이드 정보 GET API (모달창)
+export const getGuideInfo = async (guideId) => {
+  const params = { guideId };
+
+  console.log("가이드 아이디", guideId, params);
+  const response = await AuthApi.get("/api/guide/detail", { params });
+  return response.data;
+};
+
 // /recommend 페이지 내 여행지역 추천 API
 export const getRecommend = async () => {
   const data = {};
