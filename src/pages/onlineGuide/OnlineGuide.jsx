@@ -10,29 +10,46 @@ export default function OnlineGuide() {
   const [clickGuideInfo, setClickGuideInfo] = useState([]);
   const [activeFilter, setActiveFilter] = useState(0);
   const [params, setParams] = useState({
-    ageGoe: 0,
-    ageLoe: 0,
-    nickname: "",
-    areaCode: 0,
-    sigunguCode: 0,
-    careerGoe: 0,
-    careerLoe: 0,
-    size: 0,
-    page: 1,
-    order: "",
+    ageGoe: null,
+    ageLoe: null,
+    nickname: null,
+    areaCode: null,
+    sigunguCode: null,
+    careerGoe: null,
+    careerLoe: null,
+    size: null,
+    page: null,
+    order: null,
   });
 
-  useEffect(() => {
-    getOnlineGuideList({ params })
+  const fetchGuideList = () => {
+    const sanitizedParams = Object.fromEntries(
+      Object.entries(params).map(([key, value]) => [
+        key,
+        value === 0 ? null : value,
+      ])
+    );
+    getOnlineGuideList({ ...sanitizedParams })
       .then((response) => {
-        console.log(params.size);
-        console.log(response);
+        //console.log(response);
         setList(response.content);
       })
       .catch((error) => {
         console.log("온라인 가이드 조회 실패", error);
       });
+  };
+
+  useEffect(() => {
+    // 초기 화면 로딩 시
+    fetchGuideList();
   }, []);
+
+  const applyFilters = () => {
+    // 필터 적용 시 다시 api get
+    console.log("params \n", params);
+    fetchGuideList();
+    console.log(onlineGuideList);
+  };
 
   const handleClickOnCard = (guideInfo) => {
     setGuideModal(true);
@@ -49,19 +66,24 @@ export default function OnlineGuide() {
   };
 
   const handleActiveFilter = (idx) => {
-    setActiveFilter(idx);
+    setActiveFilter((prev) => (prev === idx ? -1 : idx));
   };
 
   const handleInputTextChange = (e) => {
     const { id, value } = e.target;
 
-    console.log(id, value);
-    setParams((prev) => {
-      return {
-        ...prev,
-        [id]: Number(value),
-      };
-    });
+    if (id === "order") {
+      setParams((prev) => {
+        return { ...prev, [id]: value };
+      });
+    } else {
+      setParams((prev) => {
+        return {
+          ...prev,
+          [id]: Number(value),
+        };
+      });
+    }
   };
 
   const props = {
@@ -72,6 +94,7 @@ export default function OnlineGuide() {
     activeFilter,
     handleActiveFilter,
     handleInputTextChange,
+    applyFilters,
   };
   return (
     <>

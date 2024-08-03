@@ -124,8 +124,8 @@ export const getOnlineGuideList = async ({
   nickname,
   areaCode,
   sigunguCode,
-  careerGo,
-  careerLow,
+  careerGoe,
+  careerLoe,
   size,
   page,
   order,
@@ -136,12 +136,13 @@ export const getOnlineGuideList = async ({
     nickname,
     areaCode,
     sigunguCode,
-    careerGo,
-    careerLow,
+    careerGoe,
+    careerLoe,
     size,
     page,
     order,
   };
+
   const response = await AuthApi.get("/api/guide/onlineguidelist", { params });
   return response.data;
 };

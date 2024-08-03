@@ -1,3 +1,5 @@
+import AreaSelect from "../../components/common/AreaSelect";
+
 export default function GuideSignUpView({
   values,
   handleChange,
@@ -174,30 +176,11 @@ export default function GuideSignUpView({
 
       <div className="w-[400px] mt-[20px] flex justify-between items-center gap-[10px] text-[15px]">
         <div>지역</div>
-        <select
-          className="w-[300px] h-[45px] px-4 py-2 rounded-2xl shadow-button"
-          id="areaCode"
-          value={values.areaCode}
+        <AreaSelect
+          css={"w-[300px] h-[45px] px-4 py-2 rounded-2xl shadow-button"}
+          id={"areaCode"}
           onChange={handleChange}
-        >
-          <option value={1}> 서울특별시 </option>
-          <option value={2}> 인천광역시 </option>
-          <option value={3}> 대전광역시 </option>
-          <option value={5}> 광주광역시 </option>
-          <option value={4}> 대구광역시 </option>
-          <option value={7}> 울산광역시 </option>
-          <option value={6}> 부산광역시 </option>
-          <option value={8}> 세종특별자치시 </option>
-          <option value={31}> 경기도 </option>
-          <option value={32}> 강원특별자치도 </option>
-          <option value={33}> 충청북도 </option>
-          <option value={34}> 충청남도 </option>
-          <option value={35}> 전북특별자치도 </option>
-          <option value={36}> 전라남도 </option>
-          <option value={37}> 경상북도 </option>
-          <option value={38}> 경상남도 </option>
-          <option value={39}> 제주특별자치도 </option>
-        </select>
+        />
       </div>
 
       <div className="w-[400px] mt-[20px] flex justify-between items-center gap-[10px] text-[15px]">
