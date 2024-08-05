@@ -3,11 +3,10 @@ import profile from "../../assets/image/icon_mypage.png";
 import { useNavigate } from "react-router-dom";
 
 export default function GuideModalView({ isVisible, guideInfo, onClose }) {
-  const props = { isVisible, onClose };
   const navigate = useNavigate();
 
   return (
-    <Modal {...props}>
+    <Modal {...{ isVisible, onClose }}>
       <div className="w-[600px] h-[500px] flex flex-col gap-[30px]">
         <div className="h-[150px] flex items-center justify-start gap-[45px]">
           <img

@@ -3,11 +3,13 @@ import OfflineGuideView from "./OfflineGuideView";
 import { getOfflineGuideList } from "../../api/AuthApi";
 import GuideModal from "../../components/common/GuideModal";
 import { GUIDE_FILTER_CATEGORYS } from "../../data/Filter";
+import AreaModal from "../../components/modal/AreaModal";
 
 export default function OfflineGuide() {
   const [offlineGuideList, setList] = useState([]);
+  const [areaModal, setAreaModal] = useState(false);
   const [guideModal, setGuideModal] = useState(false);
-  const [clickGuideInfo, setClickGuideInfo] = useState([]);
+  const [clickGuideID, setClickGuideID] = useState(-1);
   const [activeFilter, setActiveFilter] = useState(-1);
   const [params, setParams] = useState({
     ageGoe: null,
@@ -43,22 +45,18 @@ export default function OfflineGuide() {
     fetchGuideList();
   }, []);
 
-  const applyFilters = () => {
-    // 필터 적용 시 다시 api get
+  useEffect(() => {
+    // 필터 적용 시 list update
     fetchGuideList();
-  };
+  }, [params]);
 
-  const handleClickOnCard = (guideInfo) => {
+  const handleClickOnCard = (guideId) => {
     setGuideModal(true);
-    setClickGuideInfo([
-      guideInfo.nickname,
-      guideInfo.career,
-      guideInfo.comment,
-    ]);
+    setClickGuideID(guideId);
   };
   const handleOnClose = () => {
     setGuideModal(false);
-    setClickGuideInfo([]);
+    setClickGuideID(-1);
   };
 
   const handleActiveFilter = (idx) => {
@@ -82,15 +80,31 @@ export default function OfflineGuide() {
     }
   };
 
+  // 지역 선택 모달
+  const handleClickOnAreaSel = () => {
+    setAreaModal(true);
+  };
+
+  const handleOnAreaClose = () => {
+    setAreaModal(false);
+  };
+
+  const handleOnChooseBtn = (value) => {
+    setParams((prev) => {
+      return { ...prev, ["areaCode"]: value };
+    });
+    setAreaModal(false);
+  };
+
   const props = {
     offlineGuideList,
+    handleClickOnAreaSel,
     handleClickOnCard,
     GUIDE_FILTER_CATEGORYS,
     params,
     activeFilter,
     handleActiveFilter,
     handleInputTextChange,
-    applyFilters,
   };
 
   return (
@@ -98,8 +112,13 @@ export default function OfflineGuide() {
       <OfflineGuideView {...props} />
       <GuideModal
         isVisible={guideModal}
-        guideInfo={clickGuideInfo}
+        guideID={clickGuideID}
         onClose={handleOnClose}
+      />
+      <AreaModal
+        isVisible={areaModal}
+        onChoose={handleOnChooseBtn}
+        onClose={handleOnAreaClose}
       />
     </>
   );

@@ -3,9 +3,11 @@ import OnlineGuideView from "./OnlineGuideView";
 import { getOnlineGuideList } from "../../api/AuthApi";
 import GuideModal from "../../components/common/GuideModal";
 import { GUIDE_FILTER_CATEGORYS } from "../../data/Filter";
+import AreaModal from "../../components/modal/AreaModal";
 
 export default function OnlineGuide() {
   const [onlineGuideList, setList] = useState([]);
+  const [areaModal, setAreaModal] = useState(false);
   const [guideModal, setGuideModal] = useState(false);
   const [clickGuideID, setClickGuideID] = useState(-1);
   const [activeFilter, setActiveFilter] = useState(-1);
@@ -44,12 +46,10 @@ export default function OnlineGuide() {
     fetchGuideList();
   }, []);
 
-  const applyFilters = () => {
-    // 필터 적용 시 다시 api get
-    console.log("params \n", params);
+  useEffect(() => {
+    // 필터 적용 시 list update
     fetchGuideList();
-    console.log(onlineGuideList);
-  };
+  }, [params]);
 
   const handleClickOnCard = (guideId) => {
     setGuideModal(true);
@@ -82,15 +82,31 @@ export default function OnlineGuide() {
     }
   };
 
+  // 지역 선택 모달
+  const handleClickOnAreaSel = () => {
+    setAreaModal(true);
+  };
+
+  const handleOnAreaClose = () => {
+    setAreaModal(false);
+  };
+
+  const handleOnChooseBtn = (value) => {
+    setParams((prev) => {
+      return { ...prev, ["areaCode"]: value };
+    });
+    setAreaModal(false);
+  };
+
   const props = {
     onlineGuideList,
+    handleClickOnAreaSel,
     handleClickOnCard,
     GUIDE_FILTER_CATEGORYS,
     params,
     activeFilter,
     handleActiveFilter,
     handleInputTextChange,
-    applyFilters,
   };
   return (
     <>
@@ -99,6 +115,11 @@ export default function OnlineGuide() {
         isVisible={guideModal}
         guideID={clickGuideID}
         onClose={handleOnClose}
+      />
+      <AreaModal
+        isVisible={areaModal}
+        onChoose={handleOnChooseBtn}
+        onClose={handleOnAreaClose}
       />
     </>
   );

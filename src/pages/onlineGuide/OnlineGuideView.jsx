@@ -4,17 +4,25 @@ import GuideCard from "../../components/common/GuideCard";
 
 export default function OnlineGuideView({
   onlineGuideList,
+  handleClickOnAreaSel,
   handleClickOnCard,
   GUIDE_FILTER_CATEGORYS,
   activeFilter,
   handleActiveFilter,
   handleInputTextChange,
-  applyFilters,
 }) {
   return (
     <section className="max-w-full mx-[162px] flex flex-col items-center]">
       <div className="mt-[25px] flex flex-col gap-[20px]">
-        <h1 className="font-bold text-[24px]"> 온라인 가이드</h1>
+        <div className="flex justify-between">
+          <h1 className="font-bold text-[24px]"> 온라인 가이드</h1>
+          <button
+            className="px-4 py-2 rounded-2xl shadow-button font-bold"
+            onClick={handleClickOnAreaSel}
+          >
+            🌍 지역 선택
+          </button>
+        </div>
         <img src={onlineBannerImg} alt="banner" />
       </div>
       <div className="mt-[40px]">
@@ -24,16 +32,7 @@ export default function OnlineGuideView({
           <div className="mt-[10px] flex gap-[15px]">
             {GUIDE_FILTER_CATEGORYS.map((item, idx) => {
               if (item.title === "지역") {
-                return (
-                  <AreaSelect
-                    css={
-                      "w-[90px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
-                    }
-                    id={item.sortType}
-                    title={item.title}
-                    handleChange={handleInputTextChange}
-                  />
-                );
+                return null;
               } else if (item.title === "시군구") {
                 return (
                   <AreaSelect
@@ -95,13 +94,6 @@ export default function OnlineGuideView({
               className="w-[270px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
               placeholder="가이드 이름으로 검색"
             />
-            <button
-              className="w-[100px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
-              onClick={applyFilters}
-            >
-              {" "}
-              필터 적용{" "}
-            </button>
           </div>
         </div>
         <div className="mt-[40px] flex flex-wrap justify-around gap-[20px]">

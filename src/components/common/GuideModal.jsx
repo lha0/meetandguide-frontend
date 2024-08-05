@@ -4,9 +4,6 @@ import { getGuideInfo } from "../../api/AuthApi";
 
 export default function GuideModal({ isVisible, guideID, onClose }) {
   const [guideInfo, setGuideInfo] = useState({});
-  const [guideId, setGuideId] = useState({ guideID });
-
-  console.log("in model ", guideID);
 
   useEffect(() => {
     if (guideID !== -1 && isVisible) {
