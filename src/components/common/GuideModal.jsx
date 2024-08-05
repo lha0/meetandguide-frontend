@@ -12,7 +12,6 @@ export default function GuideModal({ isVisible, guideID, onClose }) {
     if (guideID !== -1 && isVisible) {
       getGuideInfo(guideID)
         .then((response) => {
-          console.log("가이드 정보 받아오기 성공 ", response);
           setGuideInfo(response); // 받아온 데이터 설정
         })
         .catch((error) => {
@@ -21,7 +20,6 @@ export default function GuideModal({ isVisible, guideID, onClose }) {
     }
   }, [guideID, isVisible]);
 
-  console.log("guideinfo", guideInfo);
   const props = { isVisible, guideInfo, onClose };
   return <GuideModalView {...props} />;
 }

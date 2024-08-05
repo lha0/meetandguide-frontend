@@ -17,7 +17,7 @@ export default function OfflineGuideView({
         <h1 className="font-bold text-[24px]"> 오프라인 가이드</h1>
         <img src={offlineBannerImg} alt="banner" />
       </div>
-      <div className="mt-[24px]">
+      <div className="mt-[40px]">
         <div className="flex justify-between">
           <h2 className="font-bold text-[20px]"> 가이드 목록 </h2>
           {/* 필터링 */}
@@ -104,7 +104,7 @@ export default function OfflineGuideView({
             </button>
           </div>
         </div>
-        <div className="mt-[25px] flex flex-wrap justify-start gap-[20px]">
+        <div className="mt-[40px] flex flex-wrap justify-around gap-[20px]">
           {offlineGuideList.map((item, index) => {
             const props = {
               nickname: item.nickname,

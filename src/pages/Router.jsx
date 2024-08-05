@@ -8,6 +8,7 @@ import OfflineGuide from "./offlineGuide/OfflineGuide";
 import Recommend from "./recommend/Recommend";
 import AreaDetail from "./recommend/AreaDetail";
 import MyPage from "./mypage/MyPage";
+import Chatting from "./chatting/Chatting";
 
 export default function Router() {
   return (
@@ -21,6 +22,7 @@ export default function Router() {
       <Route path="/onlineGuide" element={<OnlineGuide />} />
       <Route path="/offlineGuide" element={<OfflineGuide />} />
       <Route path="/mypage" element={<MyPage />} />
+      <Route path="/chatting" element={<Chatting />} />
     </Routes>
   );
 }
