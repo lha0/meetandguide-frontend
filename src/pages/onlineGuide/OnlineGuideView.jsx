@@ -7,21 +7,27 @@ export default function OnlineGuideView({
   handleClickOnAreaSel,
   handleClickOnCard,
   GUIDE_FILTER_CATEGORYS,
+  params,
+  areaName,
   activeFilter,
   handleActiveFilter,
   handleInputTextChange,
 }) {
   return (
-    <section className="max-w-full mx-[162px] flex flex-col items-center]">
+    <section className="w-[80%] mx-[162px] flex flex-col items-center]">
       <div className="mt-[25px] flex flex-col gap-[20px]">
         <div className="flex justify-between">
           <h1 className="font-bold text-[24px]"> 온라인 가이드</h1>
-          <button
-            className="px-4 py-2 rounded-2xl shadow-button font-bold"
-            onClick={handleClickOnAreaSel}
-          >
-            🌍 지역 선택
-          </button>
+          <div className="flex items-center gap-[20px]">
+            <h6>현재 지역 : </h6>
+            <h6 className="font-bold text-[18px]">📍{areaName}</h6>
+            <button
+              className="px-4 py-2 rounded-2xl shadow-button font-bold"
+              onClick={handleClickOnAreaSel}
+            >
+              🌍 지역 선택
+            </button>
+          </div>
         </div>
         <img src={onlineBannerImg} alt="banner" />
       </div>
@@ -37,10 +43,11 @@ export default function OnlineGuideView({
                 return (
                   <AreaSelect
                     css={
-                      "w-[90px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
+                      "w-[180px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
                     }
                     id={item.sortType}
                     title={item.title}
+                    areaCode={params.areaCode}
                     handleChange={handleInputTextChange}
                   />
                 );
@@ -48,7 +55,7 @@ export default function OnlineGuideView({
                 return (
                   <>
                     <select
-                      className="w-[90px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
+                      className="w-[110px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
                       id={item.sortType}
                       onChange={handleInputTextChange}
                     >

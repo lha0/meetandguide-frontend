@@ -7,27 +7,34 @@ export default function OfflineGuideView({
   handleClickOnAreaSel,
   handleClickOnCard,
   GUIDE_FILTER_CATEGORYS,
+  params,
+  areaName,
   activeFilter,
   handleActiveFilter,
   handleInputTextChange,
 }) {
   return (
-    <section className="max-w-full mx-[162px] flex flex-col items-center]">
+    <section className="w-[80%] mx-[162px] flex flex-col items-center]">
       <div className="mt-[25px] flex flex-col gap-[20px]">
         <div className="flex justify-between">
           <h1 className="font-bold text-[24px]"> 오프라인 가이드</h1>
-          <button
-            className="px-4 py-2 rounded-2xl shadow-button font-bold"
-            onClick={handleClickOnAreaSel}
-          >
-            🌍 지역 선택
-          </button>
+          <div className="flex items-center gap-[20px]">
+            <h6>현재 지역 : </h6>
+            <h6 className="font-bold text-[18px]">📍{areaName}</h6>
+            <button
+              className="px-4 py-2 rounded-2xl shadow-button font-bold"
+              onClick={handleClickOnAreaSel}
+            >
+              🌍 지역 선택
+            </button>
+          </div>
         </div>
         <img src={offlineBannerImg} alt="banner" />
       </div>
       <div className="mt-[40px]">
         <div className="flex justify-between">
           <h2 className="font-bold text-[20px]"> 가이드 목록 </h2>
+
           {/* 필터링 */}
           <div className="mt-[10px] flex gap-[15px]">
             {GUIDE_FILTER_CATEGORYS.map((item, idx) => {
@@ -41,6 +48,7 @@ export default function OfflineGuideView({
                     }
                     id={item.sortType}
                     title={item.title}
+                    areaCode={params.areaCode}
                     handleChange={handleInputTextChange}
                   />
                 );
@@ -102,7 +110,7 @@ export default function OfflineGuideView({
               nickname: item.nickname,
               career: item.career,
               offlineGuideList,
-              handleClickOnCard: () => handleClickOnCard(item),
+              handleClickOnCard: () => handleClickOnCard(item.guideId),
             };
             return <GuideCard key={index} {...props} />;
           })}

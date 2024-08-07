@@ -1,5 +1,5 @@
 export const AreaCode = [
-  { areaCode: 0, sigunguCode: 0, name: "선택 안 함" },
+  { areaCode: null, sigunguCode: null, name: "선택 안 함" },
   {
     areaCode: 1,
     sigunguCode: null,

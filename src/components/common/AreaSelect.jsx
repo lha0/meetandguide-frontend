@@ -1,6 +1,6 @@
 import { AreaCode } from "../../data/AreaCode";
 
-export default function AreaSelect({ css, id, title, handleChange }) {
+export default function AreaSelect({ css, id, title, areaCode, handleChange }) {
   const data = AreaCode;
 
   if (title === "지역") {
@@ -15,8 +15,9 @@ export default function AreaSelect({ css, id, title, handleChange }) {
   } else {
     return (
       <select className={css} id={id} onChange={handleChange}>
+        {areaCode == null} && <option> 지역을 선택해주세요 </option>
         {data.map((item, idx) => {
-          if (item.sigunguCode !== null)
+          if (item.sigunguCode !== null && item.areaCode == areaCode)
             return <option value={item.sigunguCode}> {item.name} </option>;
         })}
       </select>

@@ -4,13 +4,15 @@ import { getOnlineGuideList } from "../../api/AuthApi";
 import GuideModal from "../../components/common/GuideModal";
 import { GUIDE_FILTER_CATEGORYS } from "../../data/Filter";
 import AreaModal from "../../components/modal/AreaModal";
+import { AreaCode } from "../../data/AreaCode";
 
 export default function OnlineGuide() {
   const [onlineGuideList, setList] = useState([]);
-  const [areaModal, setAreaModal] = useState(false);
+  const [areaModal, setAreaModal] = useState(true);
   const [guideModal, setGuideModal] = useState(false);
   const [clickGuideID, setClickGuideID] = useState(-1);
   const [activeFilter, setActiveFilter] = useState(-1);
+  const [areaName, setAreaName] = useState("");
   const [params, setParams] = useState({
     ageGoe: null,
     ageLoe: null,
@@ -33,7 +35,6 @@ export default function OnlineGuide() {
     );
     getOnlineGuideList({ ...sanitizedParams })
       .then((response) => {
-        //console.log(response);
         setList(response.content);
       })
       .catch((error) => {
@@ -49,6 +50,14 @@ export default function OnlineGuide() {
   useEffect(() => {
     // 필터 적용 시 list update
     fetchGuideList();
+
+    //지역 이름 변경
+    setAreaName(
+      AreaCode.filter(
+        (item, idx) =>
+          item.areaCode == params.areaCode && item.sigunguCode == null
+      )[0].name
+    );
   }, [params]);
 
   const handleClickOnCard = (guideId) => {
@@ -104,6 +113,7 @@ export default function OnlineGuide() {
     handleClickOnCard,
     GUIDE_FILTER_CATEGORYS,
     params,
+    areaName,
     activeFilter,
     handleActiveFilter,
     handleInputTextChange,
