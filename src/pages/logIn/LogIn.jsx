@@ -23,6 +23,8 @@ export default function LogIn() {
         localStorage.setItem("grantType", response.jwtToken.grantType);
         localStorage.setItem("accessToken", response.jwtToken.accessToken);
         localStorage.setItem("refreshToken", response.jwtToken.refreshToken);
+        localStorage.setItem("userId", response.userId);
+        localStorage.setItem("isGuide", response.isGuide);
 
         navigate("/");
         window.location.reload();

@@ -53,9 +53,9 @@ export default function GuideSignUp() {
       const newValue = e.target.value;
 
       if (
-        e.target.id == "career" ||
-        e.target.id == "areaCode" ||
-        e.target.id == "sigunguCode"
+        e.target.id === "career" ||
+        e.target.id === "areaCode" ||
+        e.target.id === "sigunguCode"
       ) {
         setValues({
           ...values,

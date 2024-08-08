@@ -186,10 +186,10 @@ export default function GuideSignUpView({
       <div className="w-[400px] mt-[20px] flex justify-between items-center gap-[10px] text-[15px]">
         <div>한 줄 소개</div>
         <textarea
-          className="w-[300px] h-[45px] px-4 py-2 rounded-2xl shadow-button"
           id="comment"
           value={values.comment}
           onChange={handleChange}
+          className="w-[300px] h-[45px] px-4 py-2 rounded-2xl shadow-button"
         />
       </div>
 

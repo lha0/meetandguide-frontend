@@ -67,9 +67,9 @@ export const guideSignup = async ({
 };
 
 // 휴대폰 인증번호 발송
-export const sendAuthSMS = async (phonenumber) => {
+export const sendAuthSMS = async (verifyId) => {
   const data = {
-    phonenumber,
+    verifyId,
   };
   console.log(data);
   const response = await AuthApi.post("/sms/send", data);
@@ -77,14 +77,86 @@ export const sendAuthSMS = async (phonenumber) => {
 };
 
 // 휴대폰 인증번호 체크
-export const verifyPhoneNum = async ({ phonenumber, verificationCode }) => {
+export const verifyPhoneNum = async ({ verifyId, verificationCode }) => {
   const data = {
-    phonenumber,
+    verifyId,
     verificationCode,
   };
 
-  console.log(data);
   const response = await AuthApi.post("/sms/verify", data);
+  return response.data;
+};
+
+// 가이드 정보 GET API (모달창, 프로필)
+export const getGuideInfo = async (guideId) => {
+  const params = { guideId };
+  const response = await AuthApi.get("/api/guide/detail", { params });
+  return response.data;
+};
+
+// 가이드 정보 수정
+export const modifyGuideInfo = async ({
+  guideId,
+  age,
+  nickname,
+  password,
+  phonenum,
+  areaCode,
+  sigunguCode,
+  career,
+  comment,
+  online,
+  offline,
+  gender,
+}) => {
+  const data = {
+    guideId,
+    age,
+    nickname,
+    password,
+    phonenum,
+    areaCode,
+    sigunguCode,
+    career,
+    comment,
+    online,
+    offline,
+    gender,
+  };
+
+  console.log("hello ", data);
+
+  const response = await AuthApi.put("/api/guide", data);
+  return response.data;
+};
+
+// 사용자 정보 GET API (프로필)
+export const getUserInfo = async (userId) => {
+  const params = { userId };
+
+  const response = await AuthApi.get("/api/user/detail", { params });
+  return response.data;
+};
+
+// 사용자 정보 수정
+export const modifyUserInfo = async ({
+  userId,
+  age,
+  nickname,
+  password,
+  phonenum,
+  gender,
+}) => {
+  const data = {
+    userId,
+    age,
+    nickname,
+    password,
+    phonenum,
+    gender,
+  };
+
+  const response = await AuthApi.put("/api/user", data);
   return response.data;
 };
 
@@ -144,15 +216,6 @@ export const getOnlineGuideList = async ({
   };
 
   const response = await AuthApi.get("/api/guide/onlineguidelist", { params });
-  return response.data;
-};
-
-// 가이드 정보 GET API (모달창)
-export const getGuideInfo = async (guideId) => {
-  const params = { guideId };
-
-  console.log("가이드 아이디", guideId, params);
-  const response = await AuthApi.get("/api/guide/detail", { params });
   return response.data;
 };
 
