@@ -1,10 +1,13 @@
-import Modal from "../modal/Modal";
+import Modal from "./Modal";
 import profile from "../../assets/image/icon_mypage.png";
 import { useNavigate } from "react-router-dom";
 
-export default function GuideModalView({ isVisible, guideInfo, onClose }) {
-  const navigate = useNavigate();
-
+export default function GuideModalView({
+  isVisible,
+  guideInfo,
+  onClose,
+  handleChatBtn,
+}) {
   return (
     <Modal {...{ isVisible, onClose }}>
       <div className="w-[600px] h-[500px] flex flex-col gap-[30px]">
@@ -49,7 +52,7 @@ export default function GuideModalView({ isVisible, guideInfo, onClose }) {
             disabled
           />
         </div>
-        <button className="font-bold" onClick={() => navigate("/chatting")}>
+        <button className="font-bold" onClick={handleChatBtn}>
           {" "}
           채팅 보내기{" "}
         </button>

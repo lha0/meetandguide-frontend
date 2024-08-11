@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import OnlineGuideView from "./OnlineGuideView";
 import { getOnlineGuideList } from "../../api/AuthApi";
-import GuideModal from "../../components/common/GuideModal";
+import GuideModal from "../../components/modal/GuideModal";
 import { GUIDE_FILTER_CATEGORYS } from "../../data/Filter";
 import AreaModal from "../../components/modal/AreaModal";
 import { AreaCode } from "../../data/AreaCode";
@@ -123,7 +123,7 @@ export default function OnlineGuide() {
       <OnlineGuideView {...props} />;
       <GuideModal
         isVisible={guideModal}
-        guideID={clickGuideID}
+        guideId={clickGuideID}
         onClose={handleOnClose}
       />
       <AreaModal

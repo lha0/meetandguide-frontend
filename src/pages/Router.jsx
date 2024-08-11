@@ -22,7 +22,7 @@ export default function Router() {
       <Route path="/onlineGuide" element={<OnlineGuide />} />
       <Route path="/offlineGuide" element={<OfflineGuide />} />
       <Route path="/mypage" element={<MyPage />} />
-      <Route path="/chatting" element={<Chatting />} />
+      <Route path="/chatting/:roomId" element={<Chatting />} />
     </Routes>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import OfflineGuideView from "./OfflineGuideView";
 import { getOfflineGuideList } from "../../api/AuthApi";
-import GuideModal from "../../components/common/GuideModal";
+import GuideModal from "../../components/modal/GuideModal";
 import { GUIDE_FILTER_CATEGORYS } from "../../data/Filter";
 import { AreaCode } from "../../data/AreaCode";
 import AreaModal from "../../components/modal/AreaModal";
@@ -128,7 +128,7 @@ export default function OfflineGuide() {
       <OfflineGuideView {...props} />
       <GuideModal
         isVisible={guideModal}
-        guideID={clickGuideID}
+        guideId={clickGuideID}
         onClose={handleOnClose}
       />
       <AreaModal

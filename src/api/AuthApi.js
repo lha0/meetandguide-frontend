@@ -71,7 +71,6 @@ export const sendAuthSMS = async (verifyId) => {
   const data = {
     verifyId,
   };
-  console.log(data);
   const response = await AuthApi.post("/sms/send", data);
   return response.data;
 };
@@ -90,6 +89,7 @@ export const verifyPhoneNum = async ({ verifyId, verificationCode }) => {
 // 가이드 정보 GET API (모달창, 프로필)
 export const getGuideInfo = async (guideId) => {
   const params = { guideId };
+  console.log(guideId);
   const response = await AuthApi.get("/api/guide/detail", { params });
   return response.data;
 };
@@ -123,9 +123,6 @@ export const modifyGuideInfo = async ({
     offline,
     gender,
   };
-
-  console.log("hello ", data);
-
   const response = await AuthApi.put("/api/guide", data);
   return response.data;
 };
@@ -133,7 +130,6 @@ export const modifyGuideInfo = async ({
 // 사용자 정보 GET API (프로필)
 export const getUserInfo = async (userId) => {
   const params = { userId };
-
   const response = await AuthApi.get("/api/user/detail", { params });
   return response.data;
 };
@@ -247,5 +243,27 @@ export const getAreaName = async ({ areaCode, sigunguCode }) => {
   const response = await AuthApi.get("/api/korservice/area/code2name/v1", {
     params,
   });
+  return response.data;
+};
+
+/**** Chatting API ****/
+//createRoom
+export const createChatRoomAPI = async ({ userId, guideId }) => {
+  const data = { userId, guideId };
+  const response = await AuthApi.post("/chat/createroom", data);
+  return response.data;
+};
+
+// roomID 얻기
+export const getChatRoomId = async ({ userId, guideId }) => {
+  const params = { userId, guideId };
+  const response = await AuthApi.get("/chat/room/by-users", { params });
+  return response.data;
+};
+
+// roomId 에 속한 유저 리스트 받기
+export const getUserListAPI = async (roomId) => {
+  const params = { roomId };
+  const response = await AuthApi.get("/chat/room/users", { params });
   return response.data;
 };
