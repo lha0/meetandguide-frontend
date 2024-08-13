@@ -5,13 +5,12 @@ let ACCESS_TOKEN = localStorage.getItem("jwtToken");
 
 // CREATE CUSTOM AXIOS INSTANCE
 export const AuthApi = axios.create({
-  //baseURL: "http://localhost:8080",
+  baseURL: "http://localhost:8080",
   headers: {
     "Content-Type": "application/json",
     Authorization: `${GRANT_TYPE} ${ACCESS_TOKEN}`,
-
-    "Access-Control-Allow-Origin": `http://localhost:8080`,
     "Access-Control-Allow-Credentials": "true",
+    //"Access-Control-Allow-Origin": `http://localhost:8080`,
   },
 });
 
@@ -89,7 +88,6 @@ export const verifyPhoneNum = async ({ verifyId, verificationCode }) => {
 // 가이드 정보 GET API (모달창, 프로필)
 export const getGuideInfo = async (guideId) => {
   const params = { guideId };
-  console.log(guideId);
   const response = await AuthApi.get("/api/guide/detail", { params });
   return response.data;
 };
@@ -254,16 +252,30 @@ export const createChatRoomAPI = async ({ userId, guideId }) => {
   return response.data;
 };
 
-// roomID 얻기
+// roomID 얻기 / GET /chat/room/by-users?userId=15&guideId=37
 export const getChatRoomId = async ({ userId, guideId }) => {
   const params = { userId, guideId };
   const response = await AuthApi.get("/chat/room/by-users", { params });
   return response.data;
 };
 
-// roomId 에 속한 유저 리스트 받기
-export const getUserListAPI = async (roomId) => {
-  const params = { roomId };
+// roomId 에 속한 유저 리스트 받기 / /chat/room/users?chatroomId={id}
+export const getUserListAPI = async (chatroomId) => {
+  const params = { chatroomId };
   const response = await AuthApi.get("/chat/room/users", { params });
+  return response.data;
+};
+
+// roomId 현재 채팅방 내 채팅 내역 받기 GET /chat/room/{roomid}/chats
+export const getChatDetailAPI = async (roomId) => {
+  const params = { roomId };
+  const response = await AuthApi.get(`/chat/room/${roomId}/chats`, { params });
+  return response.data;
+};
+
+//유저가 속한 채팅룸 목록 반환 (가이드, 일반유저 상관 X) / /chat/room/chatrooms?userId={id}
+export const getUserChatRoomsAPI = async (userId) => {
+  const params = { userId };
+  const response = await AuthApi.get(`/chat/room/chatrooms`, { params });
   return response.data;
 };

@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function GuideModal({ isVisible, guideId, onClose }) {
   const navigate = useNavigate();
-  let roomId = null;
   const userId = localStorage.getItem("userId");
   const [guideInfo, setGuideInfo] = useState({});
 
@@ -29,29 +28,30 @@ export default function GuideModal({ isVisible, guideId, onClose }) {
   const createChatRoom = async ({ userId, guideId }) => {
     // api로 userId, guideId 전송
     const roomInfo = await createChatRoomAPI({ userId, guideId });
-    roomId = roomInfo.roomId;
+    return roomInfo.roomId;
   };
 
   //roomId 있는지 확인 api
   const getRoomId = async ({ userId, guideId }) => {
     const roomInfo = await getChatRoomId({ userId, guideId });
-    roomId = roomInfo.roomId;
-    console.log("getRoomId", roomId);
+    return roomInfo.roomId;
   };
 
   //채팅 보내기 버튼 클릭 핸들러
   const handleChatBtn = () => {
     //기존 방 있는지 확인
-    getRoomId({ userId, guideId }).then(() => {
+    getRoomId({ userId, guideId }).then((roomId) => {
       //없으면 새로 만들기
       if (!roomId) {
-        createChatRoom({ userId, guideId }).then(() => {
+        createChatRoom({ userId, guideId }).then((newRoomId) => {
           //해당 방으로 이동
-          navigate(`/chatting/${roomId}`);
+          navigate(`/chatting?roomId=${newRoomId}`);
+          onClose();
         });
       } else {
         //해당 방으로 이동
-        navigate(`/chatting/${roomId}`);
+        navigate(`/chatting?roomId=${roomId}`);
+        onClose();
       }
     });
   };

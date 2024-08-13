@@ -1,76 +1,39 @@
-import { useParams } from "react-router-dom";
-import ChattingView from "./ChattingView";
-import SockJS from "sockjs-client";
-import { Stomp } from "@stomp/stompjs";
-import { getUserListAPI } from "../../api/AuthApi";
+import { useParams, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getUserChatRoomsAPI } from "../../api/AuthApi";
+import ChattingDefaultView from "./ChattingDefaultView";
 
-let stompClient = null;
-let username = null;
-let roomId = null;
-let userList = null;
-const sender = localStorage.getItem("userId");
-
-function connect(event) {
-  let socket = new SockJS("ws://localhost:8080/ws-stomp");
-  stompClient = Stomp.over(socket);
-
-  stompClient.connect({}, onConnected, onError);
-
-  event.preventDefault();
-}
-
-function onConnected() {
-  stompClient.subscribe(`/sub/chat/room/${roomId}`, onMessageReceived);
-}
-
-function getUserList() {
-  getUserListAPI(roomId)
-    .then((response) => {
-      userList = response;
-    })
-    .catch((error) => console.log("userList get 실패", error));
-}
-
-function onError(error) {
-  console.log("연결 에러 발생");
-}
-
-function sendMessage(event) {
-  let messageContent = "인풋에 들어갈 내용";
-
-  if (messageContent && stompClient) {
-    const chatMessage = {
-      type: "TALK",
-      roomId: roomId,
-      sender: sender,
-      message: messageContent,
-    };
-
-    stompClient.send("/pub/chat/sendMessage", {}, JSON.stringify(chatMessage));
-  }
-  event.preventDefault();
-}
-
-function onMessageReceived(payload) {
-  let chat = JSON.parse(payload.body);
-
-  //chat type : ENTER
-  if (chat.type === "ENTER") {
-  }
-  //chat type : LEAVE
-  else if (chat.type === "LEAVE") {
-  }
-
-  //chat type : Talk
-  else {
-    const text = chat.sender[0];
-    console.log(text);
-  }
-}
+const userId = Number(localStorage.getItem("userId"));
 
 export default function Chatting() {
-  const params = useParams();
-  roomId = parseInt(params.roomId);
+  const [chatList, setChatList] = useState([]);
+  const [selectedRoomId, setSelectedRoomId] = useState(null);
+  const location = useLocation();
 
-  return <ChattingView />;
+  const getChatRoomList = () => {
+    getUserChatRoomsAPI(userId)
+      .then((response) => {
+        setChatList(response);
+      })
+      .catch((error) => console.log("chatList get 실패", error));
+  };
+
+  useEffect(() => {
+    getChatRoomList();
+
+    const queryParams = new URLSearchParams(location.search);
+    const roomId = queryParams.get("roomId");
+    if (roomId) {
+      setSelectedRoomId(parseInt(roomId)); // URL에서 roomId를 추출하여 selectedRoomId로 설정
+    }
+  }, [location]);
+
+  return (
+    <ChattingDefaultView
+      chatList={chatList}
+      userId={userId}
+      selectedRoomId={selectedRoomId} // selectedRoomId 전달
+      onSelectRoom={setSelectedRoomId} // roomId 선택 핸들러 전달
+    />
+  );
 }
