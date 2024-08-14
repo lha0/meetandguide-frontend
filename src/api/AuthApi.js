@@ -244,6 +244,21 @@ export const getAreaName = async ({ areaCode, sigunguCode }) => {
   return response.data;
 };
 
+/**** 매칭 API ****/
+// 가이드 아이디로 매칭 리스트 조회
+export const getGuideMatchingListAPI = async ({ guideId, type }) => {
+  const params = { guideId, type };
+  const response = await AuthApi.get("/api/matching/guide", { params });
+  return response.data;
+};
+
+// 사용자 아이디로 매칭 리스트 조회
+export const getUserMatchingListAPI = async ({ userId, type }) => {
+  const params = { userId, type };
+  const response = await AuthApi.get("/api/matching/user", { params });
+  return response.data;
+};
+
 /**** Chatting API ****/
 //createRoom
 export const createChatRoomAPI = async ({ userId, guideId }) => {
