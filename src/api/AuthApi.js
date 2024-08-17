@@ -259,6 +259,60 @@ export const getUserMatchingListAPI = async ({ userId, type }) => {
   return response.data;
 };
 
+// 매칭 등록
+export const createMatchingAPI = async ({
+  userId,
+  guideId,
+  startTime,
+  endTime,
+  cost,
+  people,
+  reviewId,
+  type,
+}) => {
+  const data = {
+    userId,
+    guideId,
+    startTime,
+    endTime,
+    cost,
+    people,
+    reviewId,
+    type,
+  };
+  console.log(data);
+  const response = await AuthApi.post("/api/matching", data);
+  return response.data;
+};
+
+// 매칭 수정
+export const modifyMatchingAPI = async ({
+  matchingId,
+  startTime,
+  endTime,
+  cost,
+  people,
+}) => {
+  const data = {
+    matchingId,
+    startTime,
+    endTime,
+    cost,
+    people,
+  };
+  const response = await AuthApi.put("/api/matching", data);
+  return response.data;
+};
+
+//매칭 삭제
+export const deleteMatchingAPI = async ({ matchingId }) => {
+  const data = {
+    matchingId,
+  };
+  const response = await AuthApi.delete("/api/matching", data);
+  return response.data;
+};
+
 /**** Chatting API ****/
 //createRoom
 export const createChatRoomAPI = async ({ userId, guideId }) => {

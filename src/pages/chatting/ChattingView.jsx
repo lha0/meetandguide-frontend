@@ -2,8 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import { getChatDetailAPI } from "../../api/AuthApi";
+import StatusBar from "../../components/chat/StatusBar";
 
-export default function ChattingView({ userId, roomId }) {
+export default function ChattingView({
+  guideId, // 채팅 상태바에 전달하기 위함, 가이드
+  normalUserId, // 채팅 상태바에 전달하기 위함, 유저
+  userId,
+  roomId,
+}) {
   const [chatHistory, setChatHistory] = useState([]);
   const [messageContent, setMessageContent] = useState("");
 
@@ -69,8 +75,7 @@ export default function ChattingView({ userId, roomId }) {
 
   return (
     <div className="w-[85%] h-[700px] flex flex-col gap-[10px]">
-      <div className="h-[10%] rounded-2xl shadow-button"></div>
-
+      <StatusBar guideId={guideId} normalUserId={normalUserId} />
       <div className="h-[90%] p-5 flex flex-col gap-[20px] rounded-2xl shadow-button">
         <h1 className="font-bold text-[24px]">채팅</h1>
 

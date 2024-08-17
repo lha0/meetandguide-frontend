@@ -9,6 +9,8 @@ export default function ChattingDefaultView({
   onSelectRoom,
 }) {
   const [otherList, setOtherList] = useState([]);
+  const [guideId, setGuideId] = useState(null);
+  const [normalUserId, setNormalUserId] = useState(null);
 
   const getNickName = async (userId) => {
     const response = await getGuideInfo(userId);
@@ -20,6 +22,10 @@ export default function ChattingDefaultView({
       try {
         const nicknames = await Promise.all(
           chatList.map(async (item) => {
+            // 가이드 , 일반유저 아이디 구분
+            setGuideId(item.guideId);
+            setNormalUserId(item.userId);
+
             // 로그인한 사용자가 userId인지 guideId인지 확인
             const otherUserId =
               item.userId === userId ? item.guideId : item.userId;
@@ -65,6 +71,8 @@ export default function ChattingDefaultView({
       <>
         {selectedRoomId ? (
           <ChattingView
+            guideId={guideId}
+            normalUserId={normalUserId}
             userId={userId}
             roomId={selectedRoomId} // 선택된 roomId를 ChattingView에 전달
           />
