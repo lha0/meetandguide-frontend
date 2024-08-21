@@ -50,31 +50,6 @@ export default function ModifyMatchModalView({
               className="px-4 py-2 rounded-2xl shadow-button "
             />
           </div>
-          <div className="w-[400px] h-[50px] leading-[50px] flex justify-between">
-            <label> 온오프라인 </label>
-            <div className="w-[60%] flex gap-[20px]">
-              <label>
-                <input
-                  type="checkbox"
-                  id="online"
-                  value="online"
-                  checked={matchInfo.type === "online"}
-                  onChange={handleChangeOnInput}
-                />
-                온라인
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  id="offline"
-                  value="offline"
-                  checked={matchInfo.type === "offline"}
-                  onChange={handleChangeOnInput}
-                />
-                오프라인
-              </label>
-            </div>
-          </div>
         </form>
         <button
           onClick={handleModifyMatchBtn}

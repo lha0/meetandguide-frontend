@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const GRANT_TYPE = localStorage.getItem("grantType");
-let ACCESS_TOKEN = localStorage.getItem("jwtToken");
+let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
 // CREATE CUSTOM AXIOS INSTANCE
 export const AuthApi = axios.create({
@@ -107,7 +107,7 @@ export const modifyGuideInfo = async ({
   offline,
   gender,
 }) => {
-  const data = {
+  const params = {
     guideId,
     age,
     nickname,
@@ -121,7 +121,7 @@ export const modifyGuideInfo = async ({
     offline,
     gender,
   };
-  const response = await AuthApi.put("/api/guide", data);
+  const response = await AuthApi.put("/api/guide", {}, { params });
   return response.data;
 };
 
@@ -141,7 +141,7 @@ export const modifyUserInfo = async ({
   phonenum,
   gender,
 }) => {
-  const data = {
+  const params = {
     userId,
     age,
     nickname,
@@ -150,7 +150,7 @@ export const modifyUserInfo = async ({
     gender,
   };
 
-  const response = await AuthApi.put("/api/user", data);
+  const response = await AuthApi.put("/api/user", {}, { params });
   return response.data;
 };
 
@@ -267,21 +267,19 @@ export const createMatchingAPI = async ({
   endTime,
   cost,
   people,
-  reviewId,
   type,
 }) => {
-  const data = {
+  const params = {
     userId,
     guideId,
     startTime,
     endTime,
     cost,
     people,
-    reviewId,
     type,
   };
-  console.log(data);
-  const response = await AuthApi.post("/api/matching", data);
+
+  const response = await AuthApi.post(`/api/matching`, {}, { params });
   return response.data;
 };
 
@@ -293,23 +291,83 @@ export const modifyMatchingAPI = async ({
   cost,
   people,
 }) => {
-  const data = {
+  const params = {
     matchingId,
     startTime,
     endTime,
     cost,
     people,
   };
-  const response = await AuthApi.put("/api/matching", data);
+  const response = await AuthApi.put("/api/matching", {}, { params });
   return response.data;
 };
 
 //매칭 삭제
 export const deleteMatchingAPI = async ({ matchingId }) => {
-  const data = {
+  const params = {
     matchingId,
   };
-  const response = await AuthApi.delete("/api/matching", data);
+  const response = await AuthApi.delete("/api/matching", {}, { params });
+  return response.data;
+};
+
+//매칭 상태 변경 PUT /chat/status?roomId={Long}&status={String}
+export const modifyMatchStatusAPI = async ({ roomId, status }) => {
+  const params = {
+    roomId,
+    status,
+  };
+  const response = await AuthApi.put("/chat/status", {}, { params });
+  return response.data;
+};
+
+// 리뷰 작성되지 않은 매칭
+export const notReviewedMatchingAPI = async ({ userId, guideId }) => {
+  const params = { userId, guideId };
+  const response = await AuthApi.get("/api/matching/notreviewed", { params });
+  return response.data;
+};
+
+/***** 리뷰 API *****/
+// 리뷰 등록
+export const createReviewAPI = async ({
+  userId,
+  guideId,
+  matchingId,
+  rating,
+  comment,
+}) => {
+  const params = {
+    userId,
+    guideId,
+    matchingId,
+    rating,
+    comment,
+  };
+
+  const response = await AuthApi.post(`/api/review`, {}, { params });
+  return response.data;
+};
+
+// 리뷰 수정
+export const modifyReviewAPI = async ({ reviewId, rating, comment }) => {
+  const params = {
+    reviewId,
+    rating,
+    comment,
+  };
+
+  const response = await AuthApi.put(`/api/review`, {}, { params });
+  return response.data;
+};
+
+// 리뷰 삭제
+export const deleteReviewAPI = async ({ reviewId }) => {
+  const params = {
+    reviewId,
+  };
+
+  const response = await AuthApi.delete(`/api/review`, {}, { params });
   return response.data;
 };
 

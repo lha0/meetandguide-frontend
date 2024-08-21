@@ -53,7 +53,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="font-bold text-[14px] flex gap-[10px]">
+      <div className="font-bold text-[14px] flex items-center gap-[10px]">
         {isLogIn ? (
           <>
             <HeaderButton

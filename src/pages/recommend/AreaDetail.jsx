@@ -13,7 +13,7 @@ export default function AreaDetail() {
       areaCode: 0, // 지역코드
       sigunguCode: 0, // 시군구코드
       imageUrl: "", // 시군구를 대표할 이미지
-      tour: ["init"],
+      tour: [],
       restaurant: [], // 식당 목록(5
     },
   ]);
@@ -43,6 +43,8 @@ export default function AreaDetail() {
   const handleCurSigungu = (idx) => {
     setCurSigungu(idx);
   };
+
+  console.log(recommendInfo);
 
   const props = {
     areaName,

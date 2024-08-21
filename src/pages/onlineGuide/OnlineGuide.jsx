@@ -77,18 +77,18 @@ export default function OnlineGuide() {
   const handleInputTextChange = (e) => {
     const { id, value } = e.target;
 
-    if (id === "order") {
-      setParams((prev) => {
+    setParams((prev) => {
+      if (id === "order") {
         return { ...prev, [id]: value };
-      });
-    } else {
-      setParams((prev) => {
+      } else if (id === "nickname") {
+        return { ...prev, nickname: value || null }; // 검색어 업데이트
+      } else {
         return {
           ...prev,
-          [id]: Number(value),
+          [id]: Number(value) || 0,
         };
-      });
-    }
+      }
+    });
   };
 
   // 지역 선택 모달
@@ -101,10 +101,14 @@ export default function OnlineGuide() {
   };
 
   const handleOnChooseBtn = (value) => {
-    setParams((prev) => {
-      return { ...prev, ["areaCode"]: value };
-    });
-    setAreaModal(false);
+    if (value || value == null) {
+      setParams((prev) => {
+        return { ...prev, ["areaCode"]: value };
+      });
+      setAreaModal(false);
+    } else {
+      alert("지역을 선택해주세요");
+    }
   };
 
   const props = {
@@ -120,7 +124,7 @@ export default function OnlineGuide() {
   };
   return (
     <>
-      <OnlineGuideView {...props} />;
+      <OnlineGuideView {...props} />
       <GuideModal
         isVisible={guideModal}
         guideId={clickGuideID}

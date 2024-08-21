@@ -43,6 +43,7 @@ export default function OfflineGuideView({
               } else if (item.title === "시군구") {
                 return (
                   <AreaSelect
+                    key={idx}
                     css={
                       "w-[90px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
                     }
@@ -56,6 +57,7 @@ export default function OfflineGuideView({
                 return (
                   <>
                     <select
+                      key={idx}
                       className="w-[90px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
                       id={item.sortType}
                       onChange={handleInputTextChange}
@@ -101,6 +103,9 @@ export default function OfflineGuideView({
             <input
               className="w-[270px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
               placeholder="가이드 이름으로 검색"
+              id="nickname"
+              value={params.nickname || ""} // 검색어 바인딩
+              onChange={handleInputTextChange} // 검색어 변경 처리
             />
           </div>
         </div>

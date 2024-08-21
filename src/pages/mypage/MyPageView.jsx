@@ -10,7 +10,7 @@ export default function MyPageView({
       </h1>
       <hr className="w-full h-[10px] mt-[10px]" />
       <div className="w-full min-h-[700px] mt-[10px] flex gap-[40px]">
-        <aside className="h-full">
+        <aside className="w-[20%] h-full">
           <ul className="list-none">
             {CATEGORY.map((category, idx) => {
               return (
@@ -25,7 +25,9 @@ export default function MyPageView({
             })}
           </ul>
         </aside>
-        <div className="w-full flex flex-col items-center">{viewComponent}</div>
+        <div className="w-[80%] flex flex-col items-center">
+          {viewComponent}
+        </div>
       </div>
     </section>
   );

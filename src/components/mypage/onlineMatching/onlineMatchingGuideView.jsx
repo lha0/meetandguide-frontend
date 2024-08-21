@@ -2,6 +2,7 @@ export default function OnlineMatchingGuideView({
   onlineMatchList,
   userNames,
 }) {
+  console.log(onlineMatchList);
   return (
     <>
       <h1 className="w-full h-[65px] font-bold text-[20px] leading-[65px]">

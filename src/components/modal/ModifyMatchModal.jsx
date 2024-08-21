@@ -5,30 +5,24 @@ import { modifyMatchingAPI } from "../../api/AuthApi";
 export default function ModifyMatchModal({
   isVisible,
   onClose,
+  roomId,
+  matchingId,
   guideId,
   normalUserId,
   setMatchStatus,
 }) {
-  console.log(isVisible);
+  console.log("matchingId ", matchingId);
   const [matchInfo, setMatchInfo] = useState({
-    matchingId: 0,
+    matchingId: matchingId,
     startTime: "",
     endTime: "",
     cost: null,
     people: null,
-    reviewId: null,
-    type: null,
   });
 
   // 매칭 수정 버튼 핸들러
   const handleModifyMatchBtn = async () => {
-    const formattedMatchInfo = {
-      ...matchInfo,
-      startTime: `'${matchInfo.startTime}'`,
-      endTime: `'${matchInfo.endTime}'`,
-    };
-
-    modifyMatchingAPI(formattedMatchInfo)
+    modifyMatchingAPI(matchInfo)
       .then((response) => {
         console.log(response);
         alert("매칭 수정에 성공하였습니다.");
@@ -53,11 +47,6 @@ export default function ModifyMatchModal({
       setMatchInfo({
         ...matchInfo,
         [id]: value,
-      });
-    } else if (id === "type") {
-      setMatchInfo({
-        ...matchInfo,
-        [id]: String(value),
       });
     } else {
       setMatchInfo({

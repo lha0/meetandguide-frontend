@@ -9,10 +9,12 @@ export default function ChattingView({
   normalUserId, // 채팅 상태바에 전달하기 위함, 유저
   userId,
   roomId,
+  matchStatus,
 }) {
   const [chatHistory, setChatHistory] = useState([]);
   const [messageContent, setMessageContent] = useState("");
 
+  // 채팅 소켓 관련
   const client = useRef(null);
 
   const connectHandler = () => {
@@ -75,7 +77,13 @@ export default function ChattingView({
 
   return (
     <div className="w-[85%] h-[700px] flex flex-col gap-[10px]">
-      <StatusBar guideId={guideId} normalUserId={normalUserId} />
+      <StatusBar
+        roomId={roomId}
+        guideId={guideId}
+        normalUserId={normalUserId}
+        matchStatus={matchStatus}
+      />
+
       <div className="h-[90%] p-5 flex flex-col gap-[20px] rounded-2xl shadow-button">
         <h1 className="font-bold text-[24px]">채팅</h1>
 

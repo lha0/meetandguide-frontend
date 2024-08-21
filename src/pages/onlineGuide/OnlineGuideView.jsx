@@ -42,6 +42,7 @@ export default function OnlineGuideView({
               } else if (item.title === "시군구") {
                 return (
                   <AreaSelect
+                    key={idx}
                     css={
                       "w-[180px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
                     }
@@ -55,6 +56,7 @@ export default function OnlineGuideView({
                 return (
                   <>
                     <select
+                      key={idx}
                       className="w-[110px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
                       id={item.sortType}
                       onChange={handleInputTextChange}
@@ -67,7 +69,7 @@ export default function OnlineGuideView({
                 );
               } else {
                 return (
-                  <div className="relative">
+                  <div key={idx} className="relative">
                     <button
                       className="w-[90px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
                       onClick={(e) => handleActiveFilter(idx)}
@@ -100,6 +102,9 @@ export default function OnlineGuideView({
             <input
               className="w-[270px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
               placeholder="가이드 이름으로 검색"
+              id="nickname"
+              value={params.nickname || ""} // 검색어 바인딩
+              onChange={handleInputTextChange} // 검색어 변경 처리
             />
           </div>
         </div>
