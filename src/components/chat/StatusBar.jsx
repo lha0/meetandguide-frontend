@@ -6,6 +6,7 @@ import WriteReviewModal from "../modal/WriteReviewModal";
 import CancelMatchModal from "../modal/CancelMatchModal";
 import FinishMatchModal from "../modal/FinishMatchModal";
 import StatusBarUserView from "./StatusBarUserView";
+import RematchModal from "../modal/RematchModal";
 
 const isGuide = JSON.parse(localStorage.getItem("isGuide"));
 
@@ -14,20 +15,23 @@ export default function StatusBar({
   guideId,
   normalUserId,
   matchStatus: initialMatchStatus,
+  matchingId: initialMatchingId,
 }) {
   // before: 매칭 전, success : 매칭 중, finish:여행 완료 (리뷰 작성 완료 시)
   const [matchStatus, updateMatchStatus] = useState(initialMatchStatus);
+  //매칭 Id 저장
+  const [matchingId, updateMatchId] = useState(initialMatchingId);
+
+  console.log("matching IDDD", matchingId);
+  console.log(matchStatus);
 
   //매칭 모달 관련 state
   const [createMatchModal, setCreateMatchModal] = useState(false);
   const [modifyMatchModal, setMatchMatchModal] = useState(false);
   const [cancelMatchModal, setCancelMatchModal] = useState(false);
   const [finishMatchModal, setFinishMatchModal] = useState(false);
-  const [writeReviewModal, setWriteReviewModal] = useState(false);
+  const [rematchModal, setRematchModal] = useState(false);
   const [reviewListModal, setReviewListModal] = useState(false);
-
-  //매칭 Id 저장
-  const [matchingId, setMatchingId] = useState(null);
 
   // 매칭 생성 모달 오픈 버튼 handler
   const handleShowCreateMatchModalBtn = () => {
@@ -49,9 +53,9 @@ export default function StatusBar({
     setFinishMatchModal(true);
   };
 
-  // 리뷰 작성 모달 오픈 버튼 handler
-  const handleShowReviewModalBtn = () => {
-    setWriteReviewModal(true);
+  // 새로운 매칭 등록 모달 오픈 버튼 handler
+  const handleOnRematchModalBtn = () => {
+    setRematchModal(true);
   };
 
   // 모달 닫기
@@ -60,7 +64,7 @@ export default function StatusBar({
     setMatchMatchModal(false);
     setCancelMatchModal(false);
     setFinishMatchModal(false);
-    setWriteReviewModal(false);
+    setRematchModal(false);
   };
 
   // 리뷰 리스트 모달 열기
@@ -77,13 +81,18 @@ export default function StatusBar({
     updateMatchStatus(initialMatchStatus); // 초기 매칭 상태 설정
   }, [initialMatchStatus]);
 
+  useEffect(() => {
+    updateMatchId(initialMatchingId); // 초기 매칭 상태 설정
+  }, [initialMatchingId]);
+
   const props = {
     matchStatus,
     handleShowCreateMatchModalBtn,
     handleShowModifyMatchModalBtn,
     handleShowCancelMatchModalBtn,
     handleShowFinishMatchModalBtn,
-    handleShowReviewModalBtn,
+    handleOnReviewListOpen,
+    handleOnRematchModalBtn,
   };
 
   const propsUser = {
@@ -98,7 +107,7 @@ export default function StatusBar({
     guideId: guideId,
     normalUserId: normalUserId,
     setMatchStatus: updateMatchStatus,
-    setMatchingId: setMatchingId,
+    setMatchingId: updateMatchId,
   };
 
   const propsModifyModal = {
@@ -114,6 +123,9 @@ export default function StatusBar({
   const propsCancelModal = {
     isVisible: cancelMatchModal,
     onClose: handleOnClose,
+    roomId: roomId,
+    setMatchStatus: updateMatchStatus,
+    matchingId: matchingId,
   };
 
   const propsFinishModal = {
@@ -133,6 +145,16 @@ export default function StatusBar({
     setMatchStatus: updateMatchStatus,
   };
 
+  const propsRematchModal = {
+    isVisible: rematchModal,
+    onClose: handleOnClose,
+    roomId: roomId,
+    guideId: guideId,
+    normalUserId: normalUserId,
+    setMatchStatus: updateMatchStatus,
+    setMatchingId: updateMatchId,
+  };
+
   return (
     <>
       {isGuide === true ? (
@@ -146,6 +168,7 @@ export default function StatusBar({
       <CancelMatchModal {...propsCancelModal} />
       <FinishMatchModal {...propsFinishModal} />
       <WriteReviewModal {...propsReviewModal} />
+      <RematchModal {...propsRematchModal} />
     </>
   );
 }

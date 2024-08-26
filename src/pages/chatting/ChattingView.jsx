@@ -10,6 +10,7 @@ export default function ChattingView({
   userId,
   roomId,
   matchStatus,
+  matchingId,
 }) {
   const [chatHistory, setChatHistory] = useState([]);
   const [messageContent, setMessageContent] = useState("");
@@ -82,6 +83,7 @@ export default function ChattingView({
         guideId={guideId}
         normalUserId={normalUserId}
         matchStatus={matchStatus}
+        matchingId={matchingId}
       />
 
       <div className="h-[90%] p-5 flex flex-col gap-[20px] rounded-2xl shadow-button">

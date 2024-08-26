@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FinishMatchModalView from "./FinishMatchModalView";
-import { modifyMatchStatusAPI } from "../../api/AuthApi";
+import { success2finishAPI } from "../../api/AuthApi";
 
 export default function FinishMatchModal({
   isVisible,
@@ -10,13 +10,12 @@ export default function FinishMatchModal({
 }) {
   const [statusSend, setStatusSend] = useState({
     roomId: roomId,
-    status: "finish",
   });
 
   // 여행 종료 버튼 핸들러
   const handleFinishMatchBtn = async () => {
     try {
-      modifyMatchStatusAPI(statusSend);
+      success2finishAPI(statusSend);
       setMatchStatus("FINISH");
       onClose();
     } catch (error) {

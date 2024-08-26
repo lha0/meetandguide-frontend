@@ -10,6 +10,8 @@ export default function Chatting() {
   const [selectedRoomId, setSelectedRoomId] = useState(null);
   const location = useLocation();
 
+  console.log("chatList ", chatList);
+
   const getChatRoomList = () => {
     getUserChatRoomsAPI(userId)
       .then((response) => {

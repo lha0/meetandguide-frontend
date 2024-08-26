@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { createMatchingAPI, before2successAPI } from "../../api/AuthApi";
-import CreateMatchModalView from "./CreateMatchModalView";
+import { createMatchingAPI, finish2successAPI } from "../../api/AuthApi";
+import RematchModalView from "./RematchModalView";
 
-export default function CreateMatchModal({
+export default function RematchModal({
   isVisible,
   onClose,
   roomId,
@@ -33,7 +33,7 @@ export default function CreateMatchModal({
   const handleCreateMatchBtn = async () => {
     try {
       const [modifyResponse, createResponse] = await Promise.all([
-        before2successAPI(statusSend),
+        finish2successAPI(statusSend),
         createMatchingAPI(matchInfo),
       ]);
 
@@ -98,5 +98,5 @@ export default function CreateMatchModal({
     matchInfo,
   };
 
-  return <CreateMatchModalView {...props} />;
+  return <RematchModalView {...props} />;
 }

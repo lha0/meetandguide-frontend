@@ -8,7 +8,12 @@ export default function AreaSelect({ css, id, title, areaCode, handleChange }) {
       <select className={css} id={id} onChange={handleChange}>
         {data.map((item, idx) => {
           if (item.sigunguCode == null)
-            return <option value={item.areaCode}> {item.name} </option>;
+            return (
+              <option key={idx} value={item.areaCode}>
+                {" "}
+                {item.name}{" "}
+              </option>
+            );
         })}
       </select>
     );
@@ -18,7 +23,12 @@ export default function AreaSelect({ css, id, title, areaCode, handleChange }) {
         {areaCode == null} && <option> 지역을 선택해주세요 </option>
         {data.map((item, idx) => {
           if (item.sigunguCode !== null && item.areaCode == areaCode)
-            return <option value={item.sigunguCode}> {item.name} </option>;
+            return (
+              <option key={idx} value={item.sigunguCode}>
+                {" "}
+                {item.name}{" "}
+              </option>
+            );
         })}
       </select>
     );

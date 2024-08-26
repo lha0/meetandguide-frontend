@@ -24,7 +24,6 @@ export default function ModifyMatchModal({
   const handleModifyMatchBtn = async () => {
     modifyMatchingAPI(matchInfo)
       .then((response) => {
-        console.log(response);
         alert("매칭 수정에 성공하였습니다.");
         setMatchStatus(1);
       })

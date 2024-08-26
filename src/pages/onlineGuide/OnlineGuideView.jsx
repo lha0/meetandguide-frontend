@@ -62,7 +62,11 @@ export default function OnlineGuideView({
                       onChange={handleInputTextChange}
                     >
                       {item.contents.map((elem, idx) => {
-                        return <option value={elem.value}>{elem.name}</option>;
+                        return (
+                          <option key={idx} value={elem.value}>
+                            {elem.name}
+                          </option>
+                        );
                       })}
                     </select>
                   </>

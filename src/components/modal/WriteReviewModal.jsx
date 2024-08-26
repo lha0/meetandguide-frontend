@@ -13,7 +13,6 @@ export default function WriteReviewModal({
   userId,
   setMatchStatus,
 }) {
-  console.log("userId", userId);
   const [notReviewedList, setNotReviewedList] = useState([
     {
       userId: userId,
@@ -38,7 +37,6 @@ export default function WriteReviewModal({
 
   // 리뷰 등록
   const fetchCreateReview = async () => {
-    console.log("review", review);
     createReviewAPI(review)
       .then((response) => {
         console.log(response);
@@ -65,7 +63,6 @@ export default function WriteReviewModal({
   // 작성되지 않은 리뷰 매칭 리스트 조회
   const fetchNotReviewedList = () => {
     notReviewedMatchingAPI({ userId, guideId }).then((response) => {
-      console.log("response", response);
       // setNotReviewedList(response);
     });
   };

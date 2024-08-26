@@ -12,6 +12,7 @@ export default function ChattingDefaultView({
   const [guideId, setGuideId] = useState(null);
   const [normalUserId, setNormalUserId] = useState(null);
   const [matchStatusMap, setMatchStatusMap] = useState({});
+  const [matchingIdMap, setMatchingIdMap] = useState({});
 
   const getNickName = async (userId) => {
     const response = await getGuideInfo(userId);
@@ -31,6 +32,12 @@ export default function ChattingDefaultView({
             setMatchStatusMap((prev) => ({
               ...prev,
               [item.roomId]: item.status,
+            }));
+
+            //매칭 아이디 저장
+            setMatchingIdMap((prev) => ({
+              ...prev,
+              [item.roomId]: item.matching,
             }));
 
             // 로그인한 사용자가 userId인지 guideId인지 확인
@@ -83,6 +90,7 @@ export default function ChattingDefaultView({
             userId={userId}
             roomId={selectedRoomId} // 선택된 roomId를 ChattingView에 전달
             matchStatus={matchStatusMap[selectedRoomId]} //매칭 상태 전달
+            matchingId={matchingIdMap[selectedRoomId]}
           />
         ) : (
           <div className="w-[80%] h-[700px] flex flex-col gap-[10px] rounded-2xl shadow-button">

@@ -307,17 +307,7 @@ export const deleteMatchingAPI = async ({ matchingId }) => {
   const params = {
     matchingId,
   };
-  const response = await AuthApi.delete("/api/matching", {}, { params });
-  return response.data;
-};
-
-//매칭 상태 변경 PUT /chat/status?roomId={Long}&status={String}
-export const modifyMatchStatusAPI = async ({ roomId, status }) => {
-  const params = {
-    roomId,
-    status,
-  };
-  const response = await AuthApi.put("/chat/status", {}, { params });
+  const response = await AuthApi.delete("/api/matching", { params });
   return response.data;
 };
 
@@ -386,13 +376,6 @@ export const getChatRoomId = async ({ userId, guideId }) => {
   return response.data;
 };
 
-// roomId 에 속한 유저 리스트 받기 / /chat/room/users?chatroomId={id}
-export const getUserListAPI = async (chatroomId) => {
-  const params = { chatroomId };
-  const response = await AuthApi.get("/chat/room/users", { params });
-  return response.data;
-};
-
 // roomId 현재 채팅방 내 채팅 내역 받기 GET /chat/room/{roomid}/chats
 export const getChatDetailAPI = async (roomId) => {
   const params = { roomId };
@@ -404,5 +387,52 @@ export const getChatDetailAPI = async (roomId) => {
 export const getUserChatRoomsAPI = async (userId) => {
   const params = { userId };
   const response = await AuthApi.get(`/chat/room/chatrooms`, { params });
+  return response.data;
+};
+
+//status before to success
+export const before2successAPI = async ({
+  roomId,
+  startTime,
+  endTime,
+  cost,
+  people,
+  type,
+}) => {
+  const params = { roomId, startTime, endTime, cost, people, type };
+  const response = await AuthApi.put(
+    "chat/status/before2success",
+    {},
+    { params }
+  );
+  return response.data;
+};
+
+//status finish to success
+export const finish2successAPI = async ({
+  roomId,
+  startTime,
+  endTime,
+  cost,
+  people,
+  type,
+}) => {
+  const params = { roomId, startTime, endTime, cost, people, type };
+  const response = await AuthApi.put(
+    "chat/status/finish2success",
+    {},
+    { params }
+  );
+  return response.data;
+};
+
+//status success to finish
+export const success2finishAPI = async ({ roomId }) => {
+  const params = { roomId };
+  const response = await AuthApi.put(
+    "chat/status/success2finish",
+    {},
+    { params }
+  );
   return response.data;
 };
