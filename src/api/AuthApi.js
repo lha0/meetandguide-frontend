@@ -161,8 +161,8 @@ export const getOfflineGuideList = async ({
   nickname,
   areaCode,
   sigunguCode,
-  careerGo,
-  careerLow,
+  careerGoe,
+  careerLoe,
   size,
   page,
   order,
@@ -173,8 +173,8 @@ export const getOfflineGuideList = async ({
     nickname,
     areaCode,
     sigunguCode,
-    careerGo,
-    careerLow,
+    careerGoe,
+    careerLoe,
     size,
     page,
     order,
@@ -259,30 +259,6 @@ export const getUserMatchingListAPI = async ({ userId, type }) => {
   return response.data;
 };
 
-// 매칭 등록
-export const createMatchingAPI = async ({
-  userId,
-  guideId,
-  startTime,
-  endTime,
-  cost,
-  people,
-  type,
-}) => {
-  const params = {
-    userId,
-    guideId,
-    startTime,
-    endTime,
-    cost,
-    people,
-    type,
-  };
-
-  const response = await AuthApi.post(`/api/matching`, {}, { params });
-  return response.data;
-};
-
 // 매칭 수정
 export const modifyMatchingAPI = async ({
   matchingId,
@@ -302,18 +278,10 @@ export const modifyMatchingAPI = async ({
   return response.data;
 };
 
-//매칭 삭제
-export const deleteMatchingAPI = async ({ matchingId }) => {
-  const params = {
-    matchingId,
-  };
-  const response = await AuthApi.delete("/api/matching", { params });
-  return response.data;
-};
-
 // 리뷰 작성되지 않은 매칭
 export const notReviewedMatchingAPI = async ({ userId, guideId }) => {
   const params = { userId, guideId };
+  console.log(params);
   const response = await AuthApi.get("/api/matching/notreviewed", { params });
   return response.data;
 };
@@ -401,7 +369,7 @@ export const before2successAPI = async ({
 }) => {
   const params = { roomId, startTime, endTime, cost, people, type };
   const response = await AuthApi.put(
-    "chat/status/before2success",
+    "/chat/status/before2success",
     {},
     { params }
   );
@@ -419,7 +387,7 @@ export const finish2successAPI = async ({
 }) => {
   const params = { roomId, startTime, endTime, cost, people, type };
   const response = await AuthApi.put(
-    "chat/status/finish2success",
+    "/chat/status/finish2success",
     {},
     { params }
   );
@@ -430,7 +398,18 @@ export const finish2successAPI = async ({
 export const success2finishAPI = async ({ roomId }) => {
   const params = { roomId };
   const response = await AuthApi.put(
-    "chat/status/success2finish",
+    "/chat/status/success2finish",
+    {},
+    { params }
+  );
+  return response.data;
+};
+
+// status success to before
+export const success2beforeAPI = async ({ roomId }) => {
+  const params = { roomId };
+  const response = await AuthApi.put(
+    "/chat/status/success2before",
     {},
     { params }
   );

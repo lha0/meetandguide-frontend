@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { createReviewAPI, notReviewedMatchingAPI } from "../../api/AuthApi";
 import WriteReviewModalView from "./WriteReviewModalView";
 import ReviewListModalView from "./ReviewListModalView";
-import { createActionCreatorInvariantMiddleware } from "@reduxjs/toolkit";
 
 export default function WriteReviewModal({
   isVisible,
@@ -53,7 +52,7 @@ export default function WriteReviewModal({
 
   // 리뷰 작성 onChange
   const handleInputReview = (e) => {
-    if (e.target.id == "rating") {
+    if (e.target.id === "rating") {
       setReview({ ...review, [e.target.id]: Number(e.target.value) });
     } else {
       setReview({ ...review, [e.target.id]: e.target.value });
@@ -62,9 +61,13 @@ export default function WriteReviewModal({
 
   // 작성되지 않은 리뷰 매칭 리스트 조회
   const fetchNotReviewedList = () => {
-    notReviewedMatchingAPI({ userId, guideId }).then((response) => {
-      // setNotReviewedList(response);
-    });
+    console.log(userId, guideId);
+    if (userId && guideId) {
+      // userId와 guideId가 유효한지 확인
+      notReviewedMatchingAPI({ userId, guideId }).then((response) => {
+        setNotReviewedList(response);
+      });
+    }
   };
 
   // 리뷰 작성 버튼 핸들러

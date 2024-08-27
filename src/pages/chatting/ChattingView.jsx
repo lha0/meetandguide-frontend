@@ -51,11 +51,20 @@ export default function ChattingView({
         {},
         JSON.stringify(chatMessage)
       );
+
+      // 메시지를 전송한 후, 입력 필드를 비웁니다.
+      setMessageContent("");
     }
   };
 
   const messageInputHandler = (e) => {
     setMessageContent(e.target.value);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      sendHandler();
+    }
   };
 
   const checkChatDetails = async (roomId) => {
@@ -98,11 +107,13 @@ export default function ChattingView({
               return (
                 <li
                   key={idx}
-                  className="max-w-[380px] p-4 rounded-t-2xl rounded-bl-2xl shadow-button self-end text-right"
+                  className="max-w-[380px] p-4 rounded-t-2xl rounded-bl-2xl shadow-button self-end text-right text-white bg-[#9CB7D6]"
                 >
-                  <div>{item.message}</div>
-                  <div>{day}</div>
-                  <div>{time}</div>
+                  <div className="text-[18px]">{item.message}</div>
+                  <div className="flex gap-[5px]">
+                    <div className="text-[12px]">{day}</div>
+                    <div className="text-[12px]">{time}</div>
+                  </div>
                 </li>
               );
             } else {
@@ -111,9 +122,11 @@ export default function ChattingView({
                   key={idx}
                   className="max-w-[380px] p-4 rounded-t-2xl rounded-br-2xl shadow-button self-start text-left"
                 >
-                  <div>{item.message}</div>
-                  <div>{day}</div>
-                  <div>{time}</div>
+                  <div className="text-[18px]">{item.message}</div>
+                  <div className="flex gap-[5px]">
+                    <div className="text-[12px]">{day}</div>
+                    <div className="text-[12px]">{time}</div>
+                  </div>
                 </li>
               );
             }
@@ -122,7 +135,9 @@ export default function ChattingView({
         <div className="flex justify-around gap-[10px]">
           <input
             type="text"
+            value={messageContent}
             onChange={messageInputHandler}
+            onKeyDown={handleKeyDown}
             className="w-[85%] h-[45px] rounded-2xl shadow-button"
           />
           <button

@@ -22,9 +22,6 @@ export default function StatusBar({
   //매칭 Id 저장
   const [matchingId, updateMatchId] = useState(initialMatchingId);
 
-  console.log("matching IDDD", matchingId);
-  console.log(matchStatus);
-
   //매칭 모달 관련 state
   const [createMatchModal, setCreateMatchModal] = useState(false);
   const [modifyMatchModal, setMatchMatchModal] = useState(false);

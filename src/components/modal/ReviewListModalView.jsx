@@ -6,6 +6,7 @@ export default function ReviewListModalView({
   notReviewedList,
   handleWriteReviewBtn,
 }) {
+  console.log(notReviewedList);
   return (
     <Modal {...{ isVisible, onClose }}>
       <div className="w-[600px] h-[500px] flex flex-col items-center gap-[40px]">

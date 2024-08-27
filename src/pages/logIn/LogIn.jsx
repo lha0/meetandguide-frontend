@@ -39,7 +39,19 @@ export default function LogIn() {
     setModal(true);
   };
 
-  const props = { values, handleChange, handleLogInBtn, handleSignUpBtn };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleLogInBtn();
+    }
+  };
+
+  const props = {
+    values,
+    handleChange,
+    handleLogInBtn,
+    handleSignUpBtn,
+    handleKeyDown,
+  };
 
   return modal == true ? <ChooseMemberView /> : <LogInView {...props} />;
 }

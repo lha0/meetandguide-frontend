@@ -1,6 +1,4 @@
-import { useState } from "react";
 import Modal from "./Modal";
-import { AreaCode } from "../../data/AreaCode";
 
 export default function AreaModalView({
   isVisible,
@@ -8,6 +6,9 @@ export default function AreaModalView({
   onClose,
   selected,
   handleSelected,
+  searchTerm,
+  handleSearchChange,
+  filteredAreas,
 }) {
   return (
     <Modal {...{ isVisible, onClose }}>
@@ -17,11 +18,12 @@ export default function AreaModalView({
         </h1>
         <input
           type="search"
+          onChange={handleSearchChange}
           placeholder="검색어를 입력해주세요"
           className="w-full px-4 py-4 rounded-2xl shadow-button"
         />
         <ul className="w-full overflow-auto">
-          {AreaCode.map((area, idx) => {
+          {filteredAreas.map((area, idx) => {
             if (!area.sigunguCode) {
               const isSelected = selected === area.areaCode;
               return (

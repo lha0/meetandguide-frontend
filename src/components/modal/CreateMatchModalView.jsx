@@ -5,7 +5,7 @@ export default function CreateMatchModalView({
   onClose,
   handleCreateMatchBtn,
   handleChangeOnInput,
-  matchInfo,
+  statusSend,
 }) {
   return (
     <Modal {...{ isVisible, onClose }}>
@@ -58,7 +58,7 @@ export default function CreateMatchModalView({
                   type="checkbox"
                   id="online"
                   value="online"
-                  checked={matchInfo.type === "online"}
+                  checked={statusSend.type === "online"}
                   onChange={handleChangeOnInput}
                 />
                 온라인
@@ -68,7 +68,7 @@ export default function CreateMatchModalView({
                   type="checkbox"
                   id="offline"
                   value="offline"
-                  checked={matchInfo.type === "offline"}
+                  checked={statusSend.type === "offline"}
                   onChange={handleChangeOnInput}
                 />
                 오프라인

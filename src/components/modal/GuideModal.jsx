@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import GuideModalView from "./GuideModalView";
 import {
   createChatRoomAPI,
-  getChatRoomId,
+  getUserChatRoomsAPI,
   getGuideInfo,
 } from "../../api/AuthApi";
 import { useNavigate } from "react-router-dom";
@@ -32,15 +32,20 @@ export default function GuideModal({ isVisible, guideId, onClose }) {
   };
 
   //roomId 있는지 확인 api
-  const getRoomId = async ({ userId, guideId }) => {
-    const roomInfo = await getChatRoomId({ userId, guideId });
-    return roomInfo.roomId;
+  const getUserChatRoom = async ({ userId }) => {
+    const roomInfo = await getUserChatRoomsAPI(userId);
+    const room = roomInfo.find((item) => item.guideId === guideId);
+    if (room) {
+      return room.roomId;
+    } else {
+      return null;
+    }
   };
 
   //채팅 보내기 버튼 클릭 핸들러
   const handleChatBtn = () => {
     //기존 방 있는지 확인
-    getRoomId({ userId, guideId }).then((roomId) => {
+    getUserChatRoom({ userId }).then((roomId) => {
       //없으면 새로 만들기
       if (!roomId) {
         createChatRoom({ userId, guideId }).then((newRoomId) => {

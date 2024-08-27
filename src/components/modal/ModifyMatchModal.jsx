@@ -25,7 +25,7 @@ export default function ModifyMatchModal({
     modifyMatchingAPI(matchInfo)
       .then((response) => {
         alert("매칭 수정에 성공하였습니다.");
-        setMatchStatus(1);
+        onClose();
       })
       .catch((error) => {
         console.log("매칭 수정 실패 ", error);

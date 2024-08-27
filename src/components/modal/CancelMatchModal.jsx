@@ -1,4 +1,4 @@
-import { deleteMatchingAPI, success2finishAPI } from "../../api/AuthApi.js";
+import { success2beforeAPI } from "../../api/AuthApi.js";
 import CancelMatchModalView from "./CancelMatchModalView";
 
 export default function CancelMatchModal({
@@ -10,18 +10,12 @@ export default function CancelMatchModal({
 }) {
   const handleCancelBtn = async () => {
     try {
-      const [deleteResponse, finishResponse] = await Promise.all([
-        deleteMatchingAPI({ matchingId: matchingId }),
-        success2finishAPI({ roomId: roomId }),
-      ]);
-
+      const response = success2beforeAPI({ roomId: roomId });
       setMatchStatus("BEFORE");
-
-      console.log(finishResponse);
-      alert("삭제 성공");
+      alert("취소되었습니다.");
       onClose();
     } catch (error) {
-      alert("삭제 실패");
+      alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
       console.log(error);
     }
   };

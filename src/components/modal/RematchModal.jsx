@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createMatchingAPI, finish2successAPI } from "../../api/AuthApi";
+import { finish2successAPI } from "../../api/AuthApi";
 import RematchModalView from "./RematchModalView";
 
 export default function RematchModal({
@@ -11,15 +11,6 @@ export default function RematchModal({
   setMatchStatus,
   setMatchingId,
 }) {
-  const [matchInfo, setMatchInfo] = useState({
-    userId: normalUserId,
-    guideId: guideId,
-    startTime: "",
-    endTime: "",
-    cost: null,
-    people: null,
-    type: null,
-  });
   const [statusSend, setStatusSend] = useState({
     roomId: roomId,
     startTime: "",
@@ -32,14 +23,11 @@ export default function RematchModal({
   // 매칭 등록 버튼 핸들러
   const handleCreateMatchBtn = async () => {
     try {
-      const [modifyResponse, createResponse] = await Promise.all([
-        finish2successAPI(statusSend),
-        createMatchingAPI(matchInfo),
-      ]);
+      const response = await finish2successAPI(statusSend);
 
       setMatchStatus("SUCCESS");
-      setMatchingId(createResponse.matchingId);
-      alert(createResponse.message);
+      setMatchingId(response.matchingId);
+      alert(response.message);
 
       onClose();
     } catch (error) {
@@ -61,28 +49,16 @@ export default function RematchModal({
     const { id, type, checked, value } = e.target;
 
     if (id === "online" || id === "offline") {
-      setMatchInfo({
-        ...matchInfo,
-        ["type"]: value,
-      });
       setStatusSend({
         ...statusSend,
         ["type"]: value,
       });
     } else if (id === "startTime" || id === "endTime") {
-      setMatchInfo({
-        ...matchInfo,
-        [id]: value,
-      });
       setStatusSend({
         ...statusSend,
         [id]: value,
       });
     } else {
-      setMatchInfo({
-        ...matchInfo,
-        [id]: Number(value),
-      });
       setStatusSend({
         ...statusSend,
         [id]: Number(value),
@@ -95,7 +71,7 @@ export default function RematchModal({
     onClose,
     handleCreateMatchBtn,
     handleChangeOnInput,
-    matchInfo,
+    statusSend,
   };
 
   return <RematchModalView {...props} />;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createMatchingAPI, before2successAPI } from "../../api/AuthApi";
+import { before2successAPI } from "../../api/AuthApi";
 import CreateMatchModalView from "./CreateMatchModalView";
 
 export default function CreateMatchModal({
@@ -11,15 +11,6 @@ export default function CreateMatchModal({
   setMatchStatus,
   setMatchingId,
 }) {
-  const [matchInfo, setMatchInfo] = useState({
-    userId: normalUserId,
-    guideId: guideId,
-    startTime: "",
-    endTime: "",
-    cost: null,
-    people: null,
-    type: null,
-  });
   const [statusSend, setStatusSend] = useState({
     roomId: roomId,
     startTime: "",
@@ -32,14 +23,11 @@ export default function CreateMatchModal({
   // 매칭 등록 버튼 핸들러
   const handleCreateMatchBtn = async () => {
     try {
-      const [modifyResponse, createResponse] = await Promise.all([
-        before2successAPI(statusSend),
-        createMatchingAPI(matchInfo),
-      ]);
+      const response = await before2successAPI(statusSend);
 
       setMatchStatus("SUCCESS");
-      setMatchingId(createResponse.matchingId);
-      alert(createResponse.message);
+      setMatchingId(response.matchingId);
+      alert(response.message);
 
       onClose();
     } catch (error) {
@@ -58,31 +46,19 @@ export default function CreateMatchModal({
 
   // 매칭 정보 입력 onChange 핸들러
   const handleChangeOnInput = (e) => {
-    const { id, type, checked, value } = e.target;
+    const { id, value } = e.target;
 
     if (id === "online" || id === "offline") {
-      setMatchInfo({
-        ...matchInfo,
-        ["type"]: value,
-      });
       setStatusSend({
         ...statusSend,
         ["type"]: value,
       });
     } else if (id === "startTime" || id === "endTime") {
-      setMatchInfo({
-        ...matchInfo,
-        [id]: value,
-      });
       setStatusSend({
         ...statusSend,
         [id]: value,
       });
     } else {
-      setMatchInfo({
-        ...matchInfo,
-        [id]: Number(value),
-      });
       setStatusSend({
         ...statusSend,
         [id]: Number(value),
@@ -95,7 +71,7 @@ export default function CreateMatchModal({
     onClose,
     handleCreateMatchBtn,
     handleChangeOnInput,
-    matchInfo,
+    statusSend,
   };
 
   return <CreateMatchModalView {...props} />;

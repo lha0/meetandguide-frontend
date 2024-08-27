@@ -14,6 +14,8 @@ export default function ChattingDefaultView({
   const [matchStatusMap, setMatchStatusMap] = useState({});
   const [matchingIdMap, setMatchingIdMap] = useState({});
 
+  console.log("chatList ", chatList);
+
   const getNickName = async (userId) => {
     const response = await getGuideInfo(userId);
     return response.nickname;
@@ -37,7 +39,7 @@ export default function ChattingDefaultView({
             //매칭 아이디 저장
             setMatchingIdMap((prev) => ({
               ...prev,
-              [item.roomId]: item.matching,
+              [item.roomId]: item.matchingId,
             }));
 
             // 로그인한 사용자가 userId인지 guideId인지 확인
@@ -59,11 +61,7 @@ export default function ChattingDefaultView({
   return (
     <section className="w-[80%] mx-[162px] flex items-center] gap-[20px]">
       <aside className="w-[20%] flex flex-col gap-[20px]">
-        <input
-          type="search"
-          className="w-[100%] h-[40px] px-4 rounded-2xl shadow-button"
-          placeholder="Search"
-        />
+        <h1 className="text-[32px] font-bold ">채팅 목록</h1>
         <ul className="flex flex-col">
           {chatList.map((item, idx) => {
             return (
