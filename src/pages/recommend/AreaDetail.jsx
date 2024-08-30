@@ -20,6 +20,8 @@ export default function AreaDetail() {
   const [areaName, setAreaName] = useState("");
   const [curSigungu, setCurSigungu] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [bannerImg, setBannerImg] = useState("");
+  const [slogan, setSlogan] = useState("");
 
   useEffect(() => {
     getAreaName({ areaCode })
@@ -31,7 +33,10 @@ export default function AreaDetail() {
     setIsLoading(true);
     getDetailRecommend({ areaCode })
       .then((response) => {
+        console.log(response);
         setRecommendInfo(response.sigungu);
+        setBannerImg(response.imageUrl);
+        setSlogan(response.slogan);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -44,13 +49,13 @@ export default function AreaDetail() {
     setCurSigungu(idx);
   };
 
-  console.log(recommendInfo);
-
   const props = {
     areaName,
     recommendInfo,
     curSigungu,
     handleCurSigungu,
+    bannerImg,
+    slogan,
   };
 
   return <>{isLoading ? <Loading /> : <AreaDetailView {...props} />}</>;

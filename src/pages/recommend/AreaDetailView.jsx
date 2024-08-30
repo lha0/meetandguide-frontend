@@ -5,12 +5,22 @@ export default function AreaDetailView({
   recommendInfo,
   curSigungu,
   handleCurSigungu,
+  bannerImg,
+  slogan,
 }) {
   return (
     <section className="max-w-full mx-[162px] flex flex-col items-center]">
       <div className="mt-[25px] flex flex-col gap-[20px]">
         <h1 className="font-bold text-[24px]"> 여행지 추천 > {areaName}</h1>
-        <img src={Banner} alt="banner" />
+        <img
+          src={bannerImg}
+          alt="배너 이미지"
+          className="h-[250px] object-cover opacity-60"
+        />
+        <p className="absolute top-[40%] left-[19%] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] font-bold text-white text-[30px]">
+          {" "}
+          {slogan}
+        </p>
       </div>
       <div className="mt-[24px]">
         <div className="flex justify-between">
