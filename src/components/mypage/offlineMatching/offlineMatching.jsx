@@ -8,9 +8,11 @@ import {
 } from "../../../api/AuthApi";
 import OfflineMatchingUserView from "./offlineMatchingUserView";
 
+const loginData = JSON.parse(localStorage.getItem("loginData"));
+
 export default function OfflineMatching() {
-  const isGuide = localStorage.getItem("isGuide") === "true";
-  const userId = localStorage.getItem("userId");
+  const isGuide = loginData.isGuide == true;
+  const userId = loginData.userId;
   const [guideNames, setGuideName] = useState([]);
   const [userNames, setUserName] = useState([]);
   const [offlineMatchList, setOfflineMatchList] = useState([]);

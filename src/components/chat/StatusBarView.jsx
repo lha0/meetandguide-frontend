@@ -4,7 +4,6 @@ export default function StatusBarView({
   handleShowModifyMatchModalBtn,
   handleShowCancelMatchModalBtn,
   handleShowFinishMatchModalBtn,
-  handleOnReviewListOpen,
   handleOnRematchModalBtn,
 }) {
   console.log(matchStatus);
@@ -53,12 +52,6 @@ export default function StatusBarView({
       <div className="h-[10%] flex justify-between items-center p-5 rounded-2xl shadow-button">
         <p className=" font-bold text-[24px]"> 여행 완료 </p>
         <div className="flex gap-[10px]">
-          <button
-            onClick={handleOnReviewListOpen}
-            className="px-4 py-2 rounded-2xl shadow-button text-white text-[15px] font-bold bg-[#9CB7D6]"
-          >
-            리뷰 작성
-          </button>
           <button
             onClick={handleOnRematchModalBtn}
             className="px-4 py-2 rounded-2xl shadow-button text-white text-[15px] font-bold bg-[#9CB7D6]"

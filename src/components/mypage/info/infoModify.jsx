@@ -4,10 +4,12 @@ import GuideInfoModifyView from "./guideInfoModifyView";
 import { modifyGuideInfo, modifyUserInfo } from "../../../api/AuthApi";
 import { useNavigate } from "react-router-dom";
 
+const loginData = JSON.parse(localStorage.getItem("loginData"));
+
 export default function InfoModify({ userInfo, pwd }) {
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
-  const isGuide = localStorage.getItem("isGuide");
+  const isGuide = loginData.isGuide;
+  const userId = loginData.userId;
   const [guideParams, setGuideParams] = useState({
     guideId: userId,
     age: userInfo.age,

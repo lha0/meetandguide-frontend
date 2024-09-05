@@ -1,24 +1,99 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
-const GRANT_TYPE = localStorage.getItem("grantType");
-let ACCESS_TOKEN = localStorage.getItem("accessToken");
+const loginData = JSON.parse(localStorage.getItem("loginData"));
+
+const GRANT_TYPE = loginData.jwt.grantType;
+let ACCESS_TOKEN = loginData.jwt.accessToken;
 
 // CREATE CUSTOM AXIOS INSTANCE
 export const AuthApi = axios.create({
   baseURL: "http://localhost:8080",
   headers: {
     "Content-Type": "application/json",
-    Authorization: `${GRANT_TYPE} ${ACCESS_TOKEN}`,
     "Access-Control-Allow-Credentials": "true",
-    //"Access-Control-Allow-Origin": `http://localhost:8080`,
   },
 });
 
+// 요청 인터셉터
+AuthApi.interceptors.request.use(
+  (config) => {
+    // 헤더에 엑세스 토큰 담기
+    if (ACCESS_TOKEN) {
+      config.headers.Authorization = `${GRANT_TYPE} ${ACCESS_TOKEN}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// 응답 인터셉터
+AuthApi.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const { config, response } = error;
+    //  401에러가 아니거나 재요청이거나 refresh 요청인 경우 그냥 에러 발생
+    if (response.status !== 401 || config.sent) {
+      return Promise.reject(error);
+    }
+    // 아닌 경우 토큰 갱신
+    config.sent = true; // 무한 재요청 방지
+    const newAccessToken = await loginSessionAPI();
+    if (newAccessToken) {
+      const loginData = JSON.parse(localStorage.getItem("loginData"));
+
+      if (loginData) {
+        loginData.accessToken = newAccessToken;
+        localStorage.setItem("loginData", JSON.stringify(loginData));
+        ACCESS_TOKEN = newAccessToken;
+        config.headers.Authorization = `${GRANT_TYPE} ${ACCESS_TOKEN}`;
+      }
+      return axios(config); // 재요청
+    }
+    logout(); // 갱신 실패 시 로그아웃
+    return Promise.reject(error);
+  }
+);
+
+const logout = () => {
+  localStorage.clear();
+};
+
 // LOGIN API
-export const login = async ({ username, password }) => {
+export const loginAPI = async ({ username, password }) => {
   const data = { username, password };
   const response = await AuthApi.post("/api/login/v1", data);
+
+  // 로그인 성공 후 토큰 만료 시간 확인
+  const decodedToken = jwtDecode(response.jwtToken.accessToken);
+  const expiresAt = decodedToken.exp * 1000; // exp는 초 단위이므로 1000을 곱해 밀리초로 변환
+
+  // 만료 시간까지 남은 시간 계산
+  const currentTime = Date.now();
+  const timeUntilExpiration = expiresAt - currentTime;
+
+  // 만료 시간에 맞춰 자동 로그아웃 타이머 설정
+  setTimeout(() => {
+    logout();
+  }, timeUntilExpiration);
+
   return response.data;
+};
+
+// 로그인 세션 유지
+export const loginSessionAPI = async () => {
+  try {
+    const response = await AuthApi.post("/api/currusername");
+    const newAccessToken = response.data.accessToken;
+    console.log(response);
+    return newAccessToken;
+  } catch (e) {
+    logout();
+  }
 };
 
 // SIGNUP API (USER)
@@ -82,6 +157,25 @@ export const verifyPhoneNum = async ({ verifyId, verificationCode }) => {
   };
 
   const response = await AuthApi.post("/sms/verify", data);
+  return response.data;
+};
+
+//이메일 인증번호 발송
+export const sendAuthEmail = async (verifyId) => {
+  const data = {
+    verifyId,
+  };
+  const response = await AuthApi.post("/mail/send", data);
+  return response.data;
+};
+
+//이메일 인증번호 체크
+export const verifyEmailNum = async ({ verifyId, verificationCode }) => {
+  const data = {
+    verifyId,
+    verificationCode,
+  };
+  const response = await AuthApi.post("/mail/verify", data);
   return response.data;
 };
 

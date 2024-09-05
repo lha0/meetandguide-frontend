@@ -12,6 +12,9 @@ export default function OnlineGuideView({
   activeFilter,
   handleActiveFilter,
   handleInputTextChange,
+  totalPages, // 전체 페이지 수
+  page, // 현재 페이지 번호
+  handlePageChange, // 페이지 변경 핸들러
 }) {
   return (
     <section className="w-[80%] mx-[162px] flex flex-col items-center]">
@@ -112,7 +115,7 @@ export default function OnlineGuideView({
             />
           </div>
         </div>
-        <div className="mt-[40px] flex flex-wrap justify-around gap-[20px]">
+        <div className="mt-[40px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[30px]">
           {onlineGuideList.map((item, index) => {
             const props = {
               nickname: item.nickname,
@@ -121,6 +124,27 @@ export default function OnlineGuideView({
             };
             return <GuideCard key={index} {...props} />;
           })}
+        </div>
+
+        {/* 페이지네이션 */}
+        <div className="h-[50px] mt-[20px] flex justify-center gap-[10px]">
+          <button
+            className="px-4 py-2 rounded-xl bg-gray-300"
+            disabled={page === 0}
+            onClick={() => handlePageChange(page - 1)}
+          >
+            이전
+          </button>
+          <span className="h-[50px] leading-[50px]">
+            {page + 1} / {totalPages}
+          </span>
+          <button
+            className="px-4 py-2 rounded-xl bg-gray-300"
+            disabled={page === totalPages - 1}
+            onClick={() => handlePageChange(page + 1)}
+          >
+            다음
+          </button>
         </div>
       </div>
     </section>

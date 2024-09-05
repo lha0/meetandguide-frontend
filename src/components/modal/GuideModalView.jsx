@@ -1,6 +1,5 @@
 import Modal from "./Modal";
 import profile from "../../assets/image/icon_mypage.png";
-import { useNavigate } from "react-router-dom";
 
 export default function GuideModalView({
   isVisible,

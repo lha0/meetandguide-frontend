@@ -1,7 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import GuideSignUpView from "./GuideSignUpView";
 import { useState } from "react";
-import { guideSignup, sendAuthSMS, verifyPhoneNum } from "../../api/AuthApi";
+import {
+  guideSignup,
+  sendAuthEmail,
+  sendAuthSMS,
+  verifyEmailNum,
+  verifyPhoneNum,
+} from "../../api/AuthApi";
 
 export default function GuideSignUp() {
   const navigate = useNavigate();
@@ -20,9 +26,13 @@ export default function GuideSignUp() {
     offline: 0,
   });
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [verifyNum, setVerifyNum] = useState("");
   const [isSMSSent, setIsSMSSent] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
+  const [isEmailSent, setIsEmailSent] = useState(false);
+  const [isSMSVerified, setIsSMSVerified] = useState(false);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [emailError, setEmailError] = useState("");
 
   const handleChange = async (e) => {
     const { id, type, checked, value } = e.target;
@@ -37,7 +47,21 @@ export default function GuideSignUp() {
           [id]: String(numbersOnly),
         });
       }
-    } else if (id == "verifynum") {
+    } else if (id === "email") {
+      // 이메일 형식 정규식
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      // 이메일 형식이 유효하지 않다면 에러 메시지 표시
+      if (!emailPattern.test(value)) {
+        setEmailError("유효하지 않은 이메일 형식입니다."); // 에러 상태 업데이트
+      } else {
+        setEmailError(""); // 에러가 없으면 상태 초기화
+        setValues({
+          ...values,
+          [id]: value, // 유효한 이메일일 경우 상태 업데이트
+        });
+      }
+    } else if (id === "verifynum") {
       setVerifyNum(String(value));
     } else if (type === "checkbox") {
       setValues({
@@ -83,7 +107,7 @@ export default function GuideSignUp() {
   };
 
   const handleSignUpBtn = () => {
-    if (!isVerified || values.username == "" || values.password == "") {
+    if (!isSMSVerified || values.username == "" || values.password == "") {
       alert("작성되지 않은 필드가 있습니다.");
     } else {
       guideSignup(values)
@@ -107,16 +131,32 @@ export default function GuideSignUp() {
       .catch((error) => console.log("인증번호 발송 실패", error));
   };
 
-  const verifyObject = {
-    phonenumber: phoneNumber,
-    verificationCode: verifyNum,
-  };
-
   const handleVerifyNum = async (e) => {
-    verifyPhoneNum(verifyObject)
+    verifyPhoneNum({
+      verifyId: phoneNumber,
+      verificationCode: verifyNum,
+    })
       .then((response) => {
         alert("인증 성공");
-        setIsVerified(true);
+        setIsSMSVerified(true);
+      })
+      .catch((error) => console.log("인증번호 인증 실패", error));
+  };
+
+  const handleSendEmail = async (e) => {
+    sendAuthEmail(email)
+      .then((response) => {
+        alert("인증번호 발송 성공");
+        setIsEmailSent(true);
+      })
+      .catch((error) => console.log("인증번호 발송 실패", error));
+  };
+
+  const handleVerifyEmail = async (e) => {
+    verifyEmailNum({ verifyId: email, verificationCode: verifyNum })
+      .then((response) => {
+        alert("인증 성공");
+        setIsEmailVerified(true);
       })
       .catch((error) => console.log("인증번호 인증 실패", error));
   };
@@ -126,12 +166,18 @@ export default function GuideSignUp() {
     handleChange,
     handleSignUpBtn,
     phoneNumber,
+    email,
     verifyNum,
     displayFormattedPhoneNumber,
     handleSendSMS,
     handleVerifyNum,
     isSMSSent,
-    isVerified,
+    isSMSVerified,
+    handleSendEmail,
+    handleVerifyEmail,
+    isEmailSent,
+    isEmailVerified,
+    emailError,
   };
   return <GuideSignUpView {...props} />;
 }

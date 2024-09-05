@@ -3,7 +3,7 @@ export default function GuideCard({ nickname, career, handleClickOnCard }) {
   return (
     <div
       onClick={handleClickOnCard}
-      className="w-[350px] h-[140px] px-[40px] py-[25px] flex items-center gap-[35px] items-center rounded-2xl shadow-button"
+      className="w-[100%] min-h-[150px] px-[40px] py-[25px] flex items-center gap-[35px] rounded-2xl shadow-button"
     >
       <img
         className="w-[50px] h-[50px] mb-[15px]"

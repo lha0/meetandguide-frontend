@@ -8,9 +8,11 @@ import {
 } from "../../../api/AuthApi";
 import OnlineMatchingGuideView from "./onlineMatchingGuideView";
 
+const loginData = JSON.parse(localStorage.getItem("loginData"));
+
 export default function OnlineMatching() {
-  const isGuide = localStorage.getItem("isGuide") === "true";
-  const userId = localStorage.getItem("userId");
+  const isGuide = loginData.isGuide == true;
+  const userId = loginData.userId;
   const [guideNames, setGuideName] = useState([]);
   const [userNames, setUserName] = useState([]);
   const [onlineMatchList, setOnlineMatchList] = useState([]);

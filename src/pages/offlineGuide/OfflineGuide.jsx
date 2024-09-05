@@ -21,10 +21,11 @@ export default function OfflineGuide() {
     sigunguCode: null,
     careerGoe: null,
     careerLoe: null,
-    size: null,
-    page: null,
+    size: 9,
+    page: 0,
     order: null,
   });
+  const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
 
   const fetchGuideList = () => {
     const sanitizedParams = Object.fromEntries(
@@ -36,6 +37,7 @@ export default function OfflineGuide() {
     getOfflineGuideList({ ...sanitizedParams })
       .then((response) => {
         setList(response.content);
+        setTotalPages(response.totalPages);
       })
       .catch((error) => {
         console.log("오프라인 가이드 조회 실패", error);
@@ -55,7 +57,7 @@ export default function OfflineGuide() {
     setAreaName(
       AreaCode.filter(
         (item, idx) =>
-          item.areaCode == params.areaCode && item.sigunguCode == null
+          item.areaCode === params.areaCode && item.sigunguCode == null
       )[0].name
     );
   }, [params]);
@@ -90,6 +92,13 @@ export default function OfflineGuide() {
     });
   };
 
+  // 페이지 변경 핸들러
+  const handlePageChange = (newPage) => {
+    if (newPage >= 0 && newPage < totalPages) {
+      setParams((prev) => ({ ...prev, page: newPage }));
+    }
+  };
+
   // 지역 선택 모달
   const handleClickOnAreaSel = () => {
     setAreaModal(true);
@@ -120,6 +129,9 @@ export default function OfflineGuide() {
     activeFilter,
     handleActiveFilter,
     handleInputTextChange,
+    totalPages, // 전체 페이지 수
+    page: params.page, // 현재 페이지 번호
+    handlePageChange, // 페이지 변경 핸들러
   };
 
   return (

@@ -11,7 +11,6 @@ export default function ModifyMatchModal({
   normalUserId,
   setMatchStatus,
 }) {
-  console.log("matchingId ", matchingId);
   const [matchInfo, setMatchInfo] = useState({
     matchingId: matchingId,
     startTime: "",

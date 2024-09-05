@@ -30,6 +30,8 @@ export default function StatusBar({
   const [rematchModal, setRematchModal] = useState(false);
   const [reviewListModal, setReviewListModal] = useState(false);
 
+  console.log("guideid ", guideId);
+
   // 매칭 생성 모달 오픈 버튼 handler
   const handleShowCreateMatchModalBtn = () => {
     setCreateMatchModal(true);
@@ -79,7 +81,7 @@ export default function StatusBar({
   }, [initialMatchStatus]);
 
   useEffect(() => {
-    updateMatchId(initialMatchingId); // 초기 매칭 상태 설정
+    updateMatchId(initialMatchingId); // 초기 매칭 아이디 설정
   }, [initialMatchingId]);
 
   const props = {
@@ -88,7 +90,6 @@ export default function StatusBar({
     handleShowModifyMatchModalBtn,
     handleShowCancelMatchModalBtn,
     handleShowFinishMatchModalBtn,
-    handleOnReviewListOpen,
     handleOnRematchModalBtn,
   };
 
@@ -136,7 +137,6 @@ export default function StatusBar({
     isVisible: reviewListModal,
     onClose: handleOnReviewListClose,
     roomId: roomId,
-    matchingId: matchingId,
     guideId: guideId,
     userId: normalUserId,
     setMatchStatus: updateMatchStatus,

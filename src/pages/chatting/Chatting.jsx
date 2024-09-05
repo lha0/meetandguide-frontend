@@ -3,11 +3,14 @@ import { useEffect, useState } from "react";
 import { getUserChatRoomsAPI } from "../../api/AuthApi";
 import ChattingDefaultView from "./ChattingDefaultView";
 
-const userId = Number(localStorage.getItem("userId"));
+const loginData = JSON.parse(localStorage.getItem("loginData"));
+
+const userId = Number(loginData.userId);
 
 export default function Chatting() {
   const [chatList, setChatList] = useState([]);
   const [selectedRoomId, setSelectedRoomId] = useState(null);
+  const [curRoom, setCurRoom] = useState(-1);
   const location = useLocation();
 
   const getChatRoomList = () => {
@@ -16,6 +19,10 @@ export default function Chatting() {
         setChatList(response);
       })
       .catch((error) => console.log("chatList get 실패", error));
+  };
+
+  const handleCurRoomIdx = (idx) => {
+    setCurRoom(idx);
   };
 
   useEffect(() => {
@@ -34,6 +41,8 @@ export default function Chatting() {
       userId={userId}
       selectedRoomId={selectedRoomId} // selectedRoomId 전달
       onSelectRoom={setSelectedRoomId} // roomId 선택 핸들러 전달
+      curRoom={curRoom}
+      handleCurRoomIdx={handleCurRoomIdx}
     />
   );
 }

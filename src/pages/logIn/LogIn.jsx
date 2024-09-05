@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import LogInView from "./LogInView";
 import ChooseMemberView from "./ChooseMemberView";
 import { useState } from "react";
-import { login } from "../../api/AuthApi";
+import { loginAPI } from "../../api/AuthApi";
+// import { useAuth } from "../../useAuth";
 
 export default function LogIn() {
   const navigate = useNavigate();
@@ -17,16 +18,19 @@ export default function LogIn() {
   };
 
   const handleLogInBtn = async (e) => {
-    login(values)
+    loginAPI(values)
       .then((response) => {
+        const loginData = {
+          jwt: response.jwtToken,
+          userId: response.userId,
+          isGuide: response.isGuide,
+        };
         localStorage.clear();
-        localStorage.setItem("grantType", response.jwtToken.grantType);
-        localStorage.setItem("accessToken", response.jwtToken.accessToken);
-        localStorage.setItem("refreshToken", response.jwtToken.refreshToken);
-        localStorage.setItem("userId", response.userId);
-        localStorage.setItem("isGuide", response.isGuide);
+        // JSON 객체로 localStorage에 저장
+        localStorage.setItem("loginData", JSON.stringify(loginData));
 
         navigate("/");
+
         window.location.reload();
       })
       .catch((error) => {

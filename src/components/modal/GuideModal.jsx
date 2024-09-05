@@ -7,9 +7,11 @@ import {
 } from "../../api/AuthApi";
 import { useNavigate } from "react-router-dom";
 
+const loginData = JSON.parse(localStorage.getItem("loginData"));
+
 export default function GuideModal({ isVisible, guideId, onClose }) {
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
+  const userId = loginData.userId;
   const [guideInfo, setGuideInfo] = useState({});
 
   useEffect(() => {

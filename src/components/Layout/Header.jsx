@@ -8,12 +8,14 @@ import iconChat from "../../assets/image/comments-solid.svg";
 import HeaderButton from "../common/HeaderButton";
 import { useEffect, useState } from "react";
 
+const loginData = JSON.parse(localStorage.getItem("loginData"));
+
 export default function Header() {
   const [isLogIn, setIsLogIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = loginData.jwt.accessToken;
     if (accessToken) {
       setIsLogIn(true);
     }

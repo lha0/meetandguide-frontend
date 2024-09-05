@@ -3,14 +3,15 @@ import InfoView from "./infoView";
 import { getGuideInfo, getUserInfo } from "../../../api/AuthApi";
 import PwdConfirm from "./pwdConfirm";
 
+const loginData = JSON.parse(localStorage.getItem("loginData"));
+
 export default function Info() {
   const [modifyBtn, setModifyBtn] = useState(false);
-  const isGuide = localStorage.getItem("isGuide");
-  const userId = localStorage.getItem("userId");
+  const isGuide = loginData.isGuide;
+  const userId = loginData.userId;
   const [userInfo, setUserInfo] = useState([]);
 
   const fetchGuideInfo = () => {
-    console.log(userId);
     getGuideInfo(userId)
       .then((response) => {
         setUserInfo(response);

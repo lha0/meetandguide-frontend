@@ -16,7 +16,10 @@ export default function WriteReviewModalView({
             <label> 평점 점수</label>
             <input
               id="rating"
-              type="text"
+              type="number"
+              placeholder="1 ~ 5점"
+              min={1}
+              max={5}
               onChange={handleInputReview}
               className="w-[60%] px-4 py-2 rounded-2xl shadow-button "
             />

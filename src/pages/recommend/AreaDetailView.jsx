@@ -15,7 +15,7 @@ export default function AreaDetailView({
         <img
           src={bannerImg}
           alt="배너 이미지"
-          className="h-[250px] object-cover opacity-60"
+          className="h-[250px] object-cover opacity-60 rounded-2xl"
         />
         <p className="absolute top-[40%] left-[19%] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] font-bold text-white text-[30px]">
           {" "}

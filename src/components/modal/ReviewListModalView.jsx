@@ -6,7 +6,7 @@ export default function ReviewListModalView({
   notReviewedList,
   handleWriteReviewBtn,
 }) {
-  console.log(notReviewedList);
+  console.log("here", notReviewedList);
   return (
     <Modal {...{ isVisible, onClose }}>
       <div className="w-[600px] h-[500px] flex flex-col items-center gap-[40px]">
@@ -20,15 +20,15 @@ export default function ReviewListModalView({
             <p>여행자 수</p>
             <p className="w-[100px]"> </p>
           </div>
-          <ul>
+          <ul className="flex flex-col gap-[15px]">
             {notReviewedList.map((item, idx) => {
               return (
-                <li key={idx} className="flex justify-around items-center ">
+                <li key={idx} className="flex justify-around items-center">
                   <div>{item.startTime}</div>
                   <div>{item.endTime}</div>
                   <div>{item.people}</div>
                   <button
-                    onClick={handleWriteReviewBtn}
+                    onClick={() => handleWriteReviewBtn(item)}
                     className="w-[100px] p-2 rounded-2xl shadow-button text-white bg-[#9CB7D6]"
                   >
                     리뷰 작성
