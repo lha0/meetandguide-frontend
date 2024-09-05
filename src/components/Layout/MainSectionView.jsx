@@ -25,7 +25,7 @@ export default function MainSectionView({
         <div className={`flex justify-around items-center]`}>
           <div className="flex flex-col justify-center gap-[20px]">
             <div className="font-bold text-[20px]"> {title} </div>
-            <div className="max-w-[570px] font-bold text-[45px] break-all">
+            <div className="max-w-[440px] font-bold text-[45px] break-keep">
               {" "}
               {mainText}
             </div>
@@ -52,7 +52,7 @@ export default function MainSectionView({
         <img src={img} className={`w-[400px] h-[400px]`} alt={`img ${idx}`} />
         <div className="flex flex-col justify-center gap-[20px]">
           <div className="font-bold text-[20px]"> {title} </div>
-          <div className="max-w-[570px] font-bold text-[45px] break-all">
+          <div className="max-w-[440px] font-bold text-[45px] break-keep">
             {" "}
             {mainText}
           </div>
@@ -74,7 +74,7 @@ export default function MainSectionView({
       >
         <div className="flex flex-col justify-center gap-[20px]">
           <div className="font-bold text-[20px]"> {title} </div>
-          <div className="max-w-[570px] font-bold text-[45px] break-all">
+          <div className="max-w-[440px] font-bold text-[45px] break-keep">
             {" "}
             {mainText}
           </div>

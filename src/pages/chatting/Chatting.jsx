@@ -5,7 +5,11 @@ import ChattingDefaultView from "./ChattingDefaultView";
 
 const loginData = JSON.parse(localStorage.getItem("loginData"));
 
-const userId = Number(loginData.userId);
+let userId = 0;
+// loginData가 null이 아닌지 확인
+if (loginData && loginData.userId) {
+  userId = Number(loginData.userId);
+}
 
 export default function Chatting() {
   const [chatList, setChatList] = useState([]);

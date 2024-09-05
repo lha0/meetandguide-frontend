@@ -3,8 +3,13 @@ import { jwtDecode } from "jwt-decode";
 
 const loginData = JSON.parse(localStorage.getItem("loginData"));
 
-const GRANT_TYPE = loginData.jwt.grantType;
-let ACCESS_TOKEN = loginData.jwt.accessToken;
+let GRANT_TYPE = "";
+let ACCESS_TOKEN = "";
+// 현재 경로가 로그인 페이지가 아닌 경우에만 리다이렉트 실행
+if (loginData && loginData.jwt) {
+  GRANT_TYPE = loginData.jwt.grantType;
+  ACCESS_TOKEN = loginData.jwt.accessToken;
+}
 
 // CREATE CUSTOM AXIOS INSTANCE
 export const AuthApi = axios.create({
@@ -18,9 +23,13 @@ export const AuthApi = axios.create({
 // 요청 인터셉터
 AuthApi.interceptors.request.use(
   (config) => {
-    // 헤더에 엑세스 토큰 담기
-    if (ACCESS_TOKEN) {
-      config.headers.Authorization = `${GRANT_TYPE} ${ACCESS_TOKEN}`;
+    // 로그인이나 회원가입 등의 특정 API는 토큰이 필요하지 않으므로 예외 처리
+    const noAuthRequiredEndpoints = ["/api/login/v1", "/api/register"];
+    if (!noAuthRequiredEndpoints.includes(config.url)) {
+      // 헤더에 엑세스 토큰 담기 (로그인 상태인 경우)
+      if (ACCESS_TOKEN) {
+        config.headers.Authorization = `${GRANT_TYPE} ${ACCESS_TOKEN}`;
+      }
     }
     return config;
   },
@@ -69,7 +78,7 @@ export const loginAPI = async ({ username, password }) => {
   const response = await AuthApi.post("/api/login/v1", data);
 
   // 로그인 성공 후 토큰 만료 시간 확인
-  const decodedToken = jwtDecode(response.jwtToken.accessToken);
+  const decodedToken = jwtDecode(response.data.jwtToken.accessToken);
   const expiresAt = decodedToken.exp * 1000; // exp는 초 단위이므로 1000을 곱해 밀리초로 변환
 
   // 만료 시간까지 남은 시간 계산

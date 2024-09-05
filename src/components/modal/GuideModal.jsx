@@ -11,7 +11,13 @@ const loginData = JSON.parse(localStorage.getItem("loginData"));
 
 export default function GuideModal({ isVisible, guideId, onClose }) {
   const navigate = useNavigate();
-  const userId = loginData.userId;
+  let userId = -1;
+  if (!loginData) {
+    navigate("/login", { replace: true }); // 'replace'를 사용하여 페이지를 대체
+  } else {
+    userId = loginData.userId;
+  }
+
   const [guideInfo, setGuideInfo] = useState({});
 
   useEffect(() => {

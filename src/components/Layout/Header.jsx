@@ -8,16 +8,21 @@ import iconChat from "../../assets/image/comments-solid.svg";
 import HeaderButton from "../common/HeaderButton";
 import { useEffect, useState } from "react";
 
-const loginData = JSON.parse(localStorage.getItem("loginData"));
+let loginData = JSON.parse(localStorage.getItem("loginData"));
 
 export default function Header() {
   const [isLogIn, setIsLogIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const accessToken = loginData.jwt.accessToken;
-    if (accessToken) {
-      setIsLogIn(true);
+    loginData = JSON.parse(localStorage.getItem("loginData"));
+    if (!loginData) {
+      setIsLogIn(false);
+    } else {
+      const accessToken = loginData.jwt.accessToken;
+      if (accessToken) {
+        setIsLogIn(true);
+      }
     }
   }, []);
 
@@ -28,12 +33,12 @@ export default function Header() {
   };
 
   return (
-    <section className="h-[100px] max-w-full mx-[162px] flex justify-between items-center font-pre">
-      <div className="flex items-center gap-[20px]">
-        <Link to={"/"} className="w-[187px]">
+    <section className="h-[100px] w-full max-w-full px-[162px] flex justify-between items-center font-pre">
+      <div className="flex items-center gap-[10px] sm:gap-[20px]">
+        <Link to={"/"} className="w-[150px] sm:w-[187px]">
           <img src={Logo} alt="Meet & Guide" />
         </Link>
-        <div className="flex gap-[15px] font-bold text-[14px]">
+        <div className="flex gap-[10px] sm:gap-[15px] font-bold text-[12px] sm:text-[14px]">
           <HeaderButton
             url="/recommend"
             content="여행지 추천"
@@ -55,7 +60,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="font-bold text-[14px] flex items-center gap-[10px]">
+      <div className="font-bold text-[12px] sm:text-[14px] flex items-center gap-[5px] sm:gap-[10px] flex-wrap">
         {isLogIn ? (
           <>
             <HeaderButton
@@ -72,7 +77,7 @@ export default function Header() {
             />
             <button
               onClick={handleLogOut}
-              className="ml-4 px-4 py-2 bg-red-500 text-white rounded"
+              className="ml-2 sm:ml-4 px-2 py-1 sm:px-4 sm:py-2 bg-red-500 text-white rounded"
             >
               로그아웃
             </button>
