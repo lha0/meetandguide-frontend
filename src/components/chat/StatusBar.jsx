@@ -8,7 +8,10 @@ import FinishMatchModal from "../modal/FinishMatchModal";
 import StatusBarUserView from "./StatusBarUserView";
 import RematchModal from "../modal/RematchModal";
 
-const isGuide = JSON.parse(localStorage.getItem("isGuide"));
+let loginData = JSON.parse(localStorage.getItem("loginData"));
+
+let isGuide = false;
+if (loginData) isGuide = loginData.isGuide;
 
 export default function StatusBar({
   roomId,

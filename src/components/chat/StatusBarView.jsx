@@ -6,7 +6,6 @@ export default function StatusBarView({
   handleShowFinishMatchModalBtn,
   handleOnRematchModalBtn,
 }) {
-  console.log(matchStatus);
   if (matchStatus === "BEFORE") {
     return (
       <div className="h-[10%] flex justify-between items-center p-5 rounded-2xl shadow-button">
