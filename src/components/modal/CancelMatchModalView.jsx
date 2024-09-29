@@ -7,8 +7,10 @@ export default function CancelMatchModalView({
 }) {
   return (
     <Modal {...{ isVisible, onClose }}>
-      <div className="w-[600px] h-[300px] flex flex-col items-center justify-center gap-[60px]">
-        <h1 className="font-bold text-[24px]">매칭을 정말 취소하시겠습니까?</h1>
+      <div className="w-[100%] h-[300px] flex flex-col items-center justify-center gap-[60px]">
+        <h1 className="font-bold text-[18px] m:text-[24px]">
+          매칭을 정말 취소하시겠습니까?
+        </h1>
         <div className="w-full flex flex-col items-center gap-[20px]">
           <button
             onClick={handleCancelBtn}

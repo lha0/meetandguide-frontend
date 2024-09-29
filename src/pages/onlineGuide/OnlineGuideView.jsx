@@ -20,10 +20,15 @@ export default function OnlineGuideView({
     <section className="w-[80%] mx-[162px] flex flex-col items-center]">
       <div className="mt-[25px] flex flex-col gap-[20px]">
         <div className="flex justify-between">
-          <h1 className="font-bold text-[24px]"> 온라인 가이드</h1>
-          <div className="flex items-center gap-[20px]">
+          <h1 className="font-bold text-[15px] md:text-[24px]">
+            {" "}
+            온라인 가이드
+          </h1>
+          <div className="flex items-center gap-[20px] text-[14px] md:text-[18px]">
             <h6>현재 지역 : </h6>
-            <h6 className="font-bold text-[18px]">📍{areaName}</h6>
+            <h6 className="font-bold text-[14px] md:text-[18px]">
+              📍{areaName}
+            </h6>
             <button
               className="px-4 py-2 rounded-2xl shadow-button font-bold"
               onClick={handleClickOnAreaSel}
@@ -36,9 +41,12 @@ export default function OnlineGuideView({
       </div>
       <div className="mt-[40px]">
         <div className="flex justify-between">
-          <h2 className="font-bold text-[20px]"> 가이드 목록 </h2>
+          <h2 className="font-bold text-[14px] md:text-[20px]">
+            {" "}
+            가이드 목록{" "}
+          </h2>
           {/* 필터링 */}
-          <div className="mt-[10px] flex gap-[15px]">
+          <div className="mt-[10px] flex justify-around gap-[1%]">
             {GUIDE_FILTER_CATEGORYS.map((item, idx) => {
               if (item.title === "지역") {
                 return null;
@@ -46,9 +54,7 @@ export default function OnlineGuideView({
                 return (
                   <AreaSelect
                     key={idx}
-                    css={
-                      "w-[180px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
-                    }
+                    css={"w-[20%] h-[35px] px-2 py-1 rounded-2xl shadow-button"}
                     id={item.sortType}
                     title={item.title}
                     areaCode={params.areaCode}
@@ -60,7 +66,7 @@ export default function OnlineGuideView({
                   <>
                     <select
                       key={idx}
-                      className="w-[110px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
+                      className="w-[20%] h-[35px] px-2 py-1 rounded-2xl shadow-button text-[12px] md:text-[15px]"
                       id={item.sortType}
                       onChange={handleInputTextChange}
                     >
@@ -78,7 +84,7 @@ export default function OnlineGuideView({
                 return (
                   <div key={idx} className="relative">
                     <button
-                      className="w-[90px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
+                      className="w-[50px] h-[35px] px-2 py-1 rounded-2xl shadow-button text-[12px] md:text-[15px]"
                       onClick={(e) => handleActiveFilter(idx)}
                     >
                       {item.title}
@@ -107,7 +113,7 @@ export default function OnlineGuideView({
             })}
 
             <input
-              className="w-[270px] h-[35px] px-4 py-2 rounded-2xl shadow-button"
+              className="w-[30%] h-[35px] px-4 py-2 rounded-2xl shadow-button"
               placeholder="가이드 이름으로 검색"
               id="nickname"
               value={params.nickname || ""} // 검색어 바인딩

@@ -10,13 +10,13 @@ export default function MyPageView({
       </h1>
       <hr className="w-full h-[10px] mt-[10px]" />
       <div className="w-full min-h-[700px] mt-[10px] flex gap-[40px]">
-        <aside className="w-[20%] h-full">
+        <aside className="w-[20%] h-full ">
           <ul className="list-none">
             {CATEGORY.map((category, idx) => {
               return (
                 <li
                   key={idx}
-                  className="h-[45px] leading-[45px]"
+                  className="h-[50%] leading-[45px] text-[12px] md:text-[15px] break-keep"
                   onClick={() => handleClickCategory(idx)}
                 >
                   {category.title}

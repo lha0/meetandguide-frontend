@@ -20,7 +20,7 @@ export default function OfflineMatchingUserView({
           return (
             <li
               key={idx}
-              className="w-full h-[65px] flex justify-around items-center"
+              className="w-full h-[65px] flex justify-around items-center text-[10px] md:text-[14px]"
             >
               <p>{guideNames[idx]}</p>
               <p>{item.startTime}</p>

@@ -66,7 +66,9 @@ export default function ChattingDefaultView({
   return (
     <section className="w-[80%] mx-[162px] flex items-center] gap-[20px]">
       <aside className="w-[20%] flex flex-col gap-[20px]">
-        <h1 className="text-[32px] font-bold ">채팅 목록</h1>
+        <h1 className="font-bold text-[22px] md:text-[30px] break-keep">
+          채팅 목록
+        </h1>
         <ul className="flex flex-col">
           {chatList.map((item, idx) => {
             const isSelected = idx == curRoom;
@@ -78,7 +80,7 @@ export default function ChattingDefaultView({
                   isSelected
                     ? "rounded-2xl bg-[#9CB7D6] text-white"
                     : "bg-white"
-                } h-[60px] px-3 leading-[60px]`}
+                } h-[60px] px-3 leading-[60px] text-[11px] md:text-[15px]`}
               >
                 <div> {otherList[idx]} </div>
               </li>

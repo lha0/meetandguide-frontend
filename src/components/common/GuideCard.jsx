@@ -11,8 +11,11 @@ export default function GuideCard({ nickname, career, handleClickOnCard }) {
         alt="profile"
       />
       <div className="flex flex-col justify-start gap-[8px]">
-        <div className="font-bold text-[20px]"> {nickname}</div>
-        <div className="font-bold text-[14px] text-gray"> 경력 {career}년</div>
+        <div className="font-bold text-[15px] md:text-[20px]"> {nickname}</div>
+        <div className="font-bold text-[10px] md:text-[14px] text-gray">
+          {" "}
+          경력 {career}년
+        </div>
       </div>
     </div>
   );

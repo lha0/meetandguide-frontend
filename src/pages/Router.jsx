@@ -13,7 +13,7 @@ import Chatting from "./chatting/Chatting";
 export default function Router() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route exact path="/" element={<Home />} />
       <Route path="/logIn" element={<LogIn />} />
       <Route path="/userSignUp" element={<UserSignUp />} />
       <Route path="/guideSignUp" element={<GuideSignUp />} />

@@ -19,7 +19,7 @@ export default function ChattingView({
   const client = useRef(null);
 
   const connectHandler = () => {
-    const socket = new SockJS("http://localhost:8080/ws-stomp");
+    const socket = new SockJS("http://3.34.40.65:8080/ws-stomp");
     client.current = Stomp.over(socket);
 
     client.current.connect(
@@ -96,7 +96,7 @@ export default function ChattingView({
       />
 
       <div className="h-[90%] p-5 flex flex-col gap-[20px] rounded-2xl shadow-button">
-        <h1 className="font-bold text-[24px]">채팅</h1>
+        <h1 className="font-bold text-[18px] md:text-[24px]">채팅</h1>
 
         <ul className="h-[600px] p-2 flex flex-col overflow-auto gap-[10px]">
           {chatHistory.map((item, idx) => {
@@ -109,10 +109,12 @@ export default function ChattingView({
                   key={idx}
                   className="max-w-[380px] p-4 rounded-t-2xl rounded-bl-2xl shadow-button self-end text-right text-white bg-[#9CB7D6]"
                 >
-                  <div className="text-[18px]">{item.message}</div>
+                  <div className="text-[14px] md:text-[18px]">
+                    {item.message}
+                  </div>
                   <div className="flex gap-[5px]">
-                    <div className="text-[12px]">{day}</div>
-                    <div className="text-[12px]">{time}</div>
+                    <div className="text-[9px] md:text-[12px]">{day}</div>
+                    <div className="text-[9px] md:text-[12px]">{time}</div>
                   </div>
                 </li>
               );
@@ -122,10 +124,12 @@ export default function ChattingView({
                   key={idx}
                   className="max-w-[380px] p-4 rounded-t-2xl rounded-br-2xl shadow-button self-start text-left"
                 >
-                  <div className="text-[18px]">{item.message}</div>
+                  <div className="text-[14px] md:text-[18px]">
+                    {item.message}
+                  </div>
                   <div className="flex gap-[5px]">
-                    <div className="text-[12px]">{day}</div>
-                    <div className="text-[12px]">{time}</div>
+                    <div className="text-[9px] md:text-[12px]">{day}</div>
+                    <div className="text-[9px] md:text-[12px]">{time}</div>
                   </div>
                 </li>
               );
@@ -138,11 +142,11 @@ export default function ChattingView({
             value={messageContent}
             onChange={messageInputHandler}
             onKeyDown={handleKeyDown}
-            className="w-[85%] h-[45px] rounded-2xl shadow-button"
+            className="w-[75%] h-[45px] rounded-2xl shadow-button"
           />
           <button
             onClick={sendHandler}
-            className="w-[10%] h-[45px] leading-[45px] rounded-2xl shadow-button text-white bg-[#9CB7D6]"
+            className="w-[20%] h-[45px] leading-[45px] rounded-2xl shadow-button text-white text-[9px] md:text-[12px] bg-[#9CB7D6]"
           >
             send
           </button>

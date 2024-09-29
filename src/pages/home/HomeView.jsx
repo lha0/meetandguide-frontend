@@ -7,6 +7,7 @@ export default function HomeView({ dummyData }) {
       {dummyData.map((item, index) => {
         return (
           <MainSection
+            key={index}
             title={item.title}
             mainText={item.mainText}
             subText={item.subText}
