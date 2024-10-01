@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+# Meet & Guide
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Meet & Guide Frontend Repository
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+Meet & Guide는 동네 전문가와 여행자를 이어주는 여행 웹 서비스 입니다.
 
-### `npm start`
+## Development Skill
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React
+- JavaScript
+- axios
+- WebSocket
+- Tailwind Css
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Web Page
+### 메인 페이지
+<img width="40%" alt="image" src="https://github.com/user-attachments/assets/3e54233c-b0d0-447b-aa2b-b6a19cc13560">
 
-### `npm test`
+### 온라인, 오프라인 가이드 찾기 페이지
+<img width="40%" alt="image" src="https://github.com/user-attachments/assets/659b43de-8384-4392-ac51-a77c045a2eca">
+<img width="40%" alt="image" src="https://github.com/user-attachments/assets/7cc7ebae-2ade-4a3b-a630-a38f1568394e">
+<img width="40%" alt="image" src="https://github.com/user-attachments/assets/99a65fd9-4a73-490a-875d-d8a114c4b45c">
+<img width="40%" alt="image" src="https://github.com/user-attachments/assets/cce0b814-1280-45e2-9f51-8978c561340a">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 채팅 페이지
+<img width="40%" alt="image" src="https://github.com/user-attachments/assets/d04c3d7b-e9bf-45b3-8962-f48ae8f1e953">
 
-### `npm run build`
+### 마이 페이지
+<img width="40%" alt="image" src="https://github.com/user-attachments/assets/78dcfd7c-a1e9-45ef-91d4-9feedf872690">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 여행지 추천 페이지
+<img width="40%" alt="image" src="https://github.com/user-attachments/assets/48a46c6f-bdc8-4b9f-9ace-2b89ab9da49f">
