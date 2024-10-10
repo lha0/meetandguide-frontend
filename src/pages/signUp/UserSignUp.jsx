@@ -115,7 +115,6 @@ export default function UserSignUp() {
   };
 
   const handleSendEmail = async (e) => {
-    console.log(email);
     sendAuthEmail(email)
       .then((response) => {
         alert("인증번호 발송 성공");
