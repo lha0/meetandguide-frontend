@@ -164,6 +164,7 @@ export const verifyPhoneNum = async ({ verifyId, verificationCode }) => {
     verifyId,
     verificationCode,
   };
+  console.log(data);
 
   const response = await AuthApi.post("/sms/verify", data);
   return response.data;

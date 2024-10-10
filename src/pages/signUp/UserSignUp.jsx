@@ -39,7 +39,7 @@ export default function UserSignUp() {
         setPhoneNumber(numbersOnly);
         setValues({
           ...values,
-          [id]: String(numbersOnly),
+          phonenum: String(numbersOnly),
         });
       }
     } else if (id === "email") {
@@ -51,10 +51,7 @@ export default function UserSignUp() {
         setEmailError("유효하지 않은 이메일 형식입니다."); // 에러 상태 업데이트
       } else {
         setEmailError(""); // 에러가 없으면 상태 초기화
-        setValues({
-          ...values,
-          [id]: value, // 유효한 이메일일 경우 상태 업데이트
-        });
+        setEmail(value); // 유효한 이메일일 경우 상태 업데이트
       }
     } else if (id === "verifynum") {
       setVerifyNum(String(value));
@@ -107,7 +104,7 @@ export default function UserSignUp() {
 
   const handleVerifyNum = async (e) => {
     verifyPhoneNum({
-      phonenumber: phoneNumber,
+      verifyId: phoneNumber,
       verificationCode: verifyNum,
     })
       .then((response) => {
@@ -118,6 +115,7 @@ export default function UserSignUp() {
   };
 
   const handleSendEmail = async (e) => {
+    console.log(email);
     sendAuthEmail(email)
       .then((response) => {
         alert("인증번호 발송 성공");
